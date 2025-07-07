@@ -1,0 +1,1278 @@
+<!DOCTYPE html>
+<html lang="en, zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Blog, Security, Vulnerability, Flaw, Life, Software, Research, Tech">
+    
+    <meta name="author" content="7erry">
+    
+    <!-- Completely eliminate flash of wrong theme -->
+    <script>
+        (function() {
+            const THEME_KEY = "REDEFINE-THEME-STATUS";
+            const DARK = "dark", LIGHT = "light";
+            
+            // Get preferred theme
+            function getTheme() {
+                try {
+                    const saved = localStorage.getItem(THEME_KEY);
+                    if (saved) {
+                        const { isDark } = JSON.parse(saved);
+                        return isDark ? DARK : LIGHT;
+                    }
+                } catch (e) {}
+                
+                return matchMedia("(prefers-color-scheme: dark)").matches ? DARK : LIGHT;
+            }
+            
+            // Apply theme to document
+            function applyTheme(theme) {
+                const isDark = theme === DARK;
+                const root = document.documentElement;
+                
+                // Set data attribute for CSS variables
+                root.setAttribute("data-theme", theme);
+                
+                // Set classes for compatibility
+                root.classList.add(theme);
+                root.classList.remove(isDark ? LIGHT : DARK);
+                root.style.colorScheme = theme;
+            }
+            
+            // Initial application
+            const theme = getTheme();
+            applyTheme(theme);
+            
+            // Listen for system preference changes
+            matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches }) => {
+                // Only update if using system preference (no localStorage entry)
+                if (!localStorage.getItem(THEME_KEY)) {
+                    applyTheme(matches ? DARK : LIGHT);
+                }
+            });
+            
+            // Set body classes once DOM is ready
+            if (document.readyState !== "loading") {
+                document.body.classList.add(theme + "-mode");
+            } else {
+                document.addEventListener("DOMContentLoaded", () => {
+                    document.body.classList.add(theme + "-mode");
+                    document.body.classList.remove((theme === DARK ? LIGHT : DARK) + "-mode");
+                });
+            }
+        })();
+    </script>
+    
+    <!-- Critical CSS to prevent flash -->
+    <style>
+        :root[data-theme="dark"] {
+            --background-color: #202124;
+            --background-color-transparent: rgba(32, 33, 36, 0.6);
+            --second-background-color: #2d2e32;
+            --third-background-color: #34353a;
+            --third-background-color-transparent: rgba(32, 33, 36, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #ffffff;
+            --second-text-color: #eeeeee;
+            --third-text-color: #bebec6;
+            --fourth-text-color: #999999;
+            --default-text-color: #bebec6;
+            --invert-text-color: #373D3F;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(255, 255, 255, 0.08);
+            --shadow-color-2: rgba(255, 255, 255, 0.05);
+        }
+        
+        :root[data-theme="light"] {
+            --background-color: #fff;
+            --background-color-transparent: rgba(255, 255, 255, 0.6);
+            --second-background-color: #f8f8f8;
+            --third-background-color: #f2f2f2;
+            --third-background-color-transparent: rgba(241, 241, 241, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #16171a;
+            --second-text-color: #2f3037;
+            --third-text-color: #5e5e5e;
+            --fourth-text-color: #eeeeee;
+            --default-text-color: #373D3F;
+            --invert-text-color: #bebec6;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(0, 0, 0, 0.08);
+            --shadow-color-2: rgba(0, 0, 0, 0.05);
+        }
+        
+        body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+        
+        /* Apply body classes as soon as DOM is ready */
+        :root[data-theme="dark"] body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+    </style>
+    
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://7erryX.github.io/2024/07/22/tech blog/对开源项目的关键性评分/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+    
+        
+        <meta name="description" content="(v50) 経験に3を加えて,失礼します [中国翻訳] [無修正]">
+<meta property="og:type" content="article">
+<meta property="og:title" content="对开源项目的关键性评分">
+<meta property="og:url" content="https://7erryx.github.io/2024/07/22/Tech%20Blog/%E5%AF%B9%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE%E7%9A%84%E5%85%B3%E9%94%AE%E6%80%A7%E8%AF%84%E5%88%86/index.html">
+<meta property="og:site_name" content="7erry&#39;s Website">
+<meta property="og:description" content="(v50) 経験に3を加えて,失礼します [中国翻訳] [無修正]">
+<meta property="og:locale">
+<meta property="og:image" content="https://7erryx.github.io/images/default_avatar.png">
+<meta property="article:published_time" content="2024-07-22T15:45:47.000Z">
+<meta property="article:modified_time" content="2024-07-22T15:45:47.000Z">
+<meta property="article:author" content="7erry">
+<meta property="article:tag" content="Blog, Security, Vulnerability, Flaw, Life, Software, Research, Tech">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://7erryx.github.io/images/default_avatar.png">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/favicon.ico" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/favicon.ico">
+    <!--- Page Info-->
+    
+    <title>
+        
+            对开源项目的关键性评分 | 7erry&#39;s Website
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/css/build/tailwind.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+    
+    
+        
+<script src="/js/build/libs/anime.min.js"></script>
+
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"7erryx.github.io","root":"/","language":"en, zh-CN","path":"search.json"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"5rem","h2":"4rem","h3":"2.8rem","h4":"2.5rem","h5":"2.2rem","h6":"2rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":false,"auto":false,"list":[]},"code_block":{"copy":true,"style":"simple","highlight_theme":{"light":"github","dark":"github-dark"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":true,"custom_message":null},"side_tools":{"gear_rotation":true,"auto_expand":false},"open_graph":{"enable":true,"image":"/images/default_avatar.png","description":"(v50) 経験に3を加えて,失礼します [中国翻訳] [無修正]"},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/background_light.jpg","dark":"/images/background_dark.jpg"},"title":"7erry's Website","subtitle":{"text":["君子慎独","君子不器","我的人生烷基八氮了","Fall in Love with the Problem, Not the Solution","Do The Right Thing，Do The Thing Right","Lux et veritas","Mens et Manus","Per Aspera Ad Astra","(v50) 経験に3を加えて，失礼します [中国翻訳] [無修正]","呐呐呐，你听说过二刺螈吗?","取势，明道，优术","做难而正确的事"],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#000","dark":"#fff"},"text_style":{"title_size":"5.7rem","subtitle_size":"1.9rem","line_height":1.1},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":{"github":"https://github.com/7erryX","instagram":null,"zhihu":null,"twitter":null,"email":"w.7erry@qq.com","bilibili":"https://space.bilibili.com/25689965"},"qrs":null}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":true,"version":"9.3.0"}},"version":"2.8.4","navbar":{"auto_hide":true,"color":{"left":"#7ab8cc","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Anime":{"path":"/bangumis","icon":"fa-brands fa-youtube"},"Cinema":{"path":"/cinemas","icon":"fa-solid fa-film"},"About":{"path":"/about","icon":"fa-regular fa-user"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"info","announcement":null,"show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"}}},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":1},"tags":{"enable":false,"limit":3}},"footerStart":"2020/2/2 20:20:22"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<style>
+    :root {
+        --preloader-background-color: #fff;
+        --preloader-text-color: #000;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --preloader-background-color: #202124;
+            --preloader-text-color: #fff;
+        }
+    }
+
+    @media (prefers-color-scheme: light) {
+        :root {
+            --preloader-background-color: #fff;
+            --preloader-text-color: #000;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .ml13 {
+            font-size: 2.6rem !important; /* Adjust this value as needed */
+        }
+    }
+
+    .preloader {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem; /* Tailwind 'gap-4' is 1rem */
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        padding: 12px;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh; /* 'h-screen' is 100% of the viewport height */
+        background-color: var(--preloader-background-color);
+        z-index: 1100; /* 'z-[1100]' sets the z-index */
+        transition: opacity 0.2s ease-in-out;
+    }
+
+    .ml13 {
+        font-size: 3.2rem;
+        /* text-transform: uppercase; */
+        color: var(--preloader-text-color);
+        letter-spacing: -1px;
+        font-weight: 500;
+        font-family: 'Chillax-Variable', sans-serif;
+        text-align: center;
+    }
+
+    .ml13 .word {
+        display: inline-flex;
+        flex-wrap: wrap;
+        white-space: nowrap;
+    }
+
+    .ml13 .letter {
+        display: inline-block;
+        line-height: 1em;
+    }
+</style>
+
+<div class="preloader">
+    <h2 class="ml13">
+        7erry&#39;s Website
+    </h2>
+    <script>
+        var textWrapper = document.querySelector('.ml13');
+        // Split text into words
+        var words = textWrapper.textContent.trim().split(' ');
+
+        // Clear the existing content
+        textWrapper.innerHTML = '';
+
+        // Wrap each word and its letters in spans
+        words.forEach(function(word) {
+            var wordSpan = document.createElement('span');
+            wordSpan.classList.add('word');
+            wordSpan.innerHTML = word.replace(/\S/g, "<span class='letter'>$&</span>");
+            textWrapper.appendChild(wordSpan);
+            textWrapper.appendChild(document.createTextNode(' ')); // Add space between words
+        });
+
+        var animation = anime.timeline({ loop: true })
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [20, 0],
+                translateZ: 0,
+                opacity: [0, 1],
+                filter: ['blur(5px)', 'blur(0px)'],
+                easing: "easeOutExpo",
+                duration: 1200,
+                delay: (el, i) => 300 + 20 * i,
+            })
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [0, -20],
+                opacity: [1, 0],
+                filter: ['blur(0px)', 'blur(5px)'],
+                easing: "easeInExpo",
+                duration: 1000,
+                delay: (el, i) => 15 * i,
+                complete: function() {
+                    hidePreloader();
+                }
+            }, '-=700');
+
+
+        let themeStatus = JSON.parse(localStorage.getItem('REDEFINE-THEME-STATUS'))?.isDark;
+
+        // If the theme status is not found in local storage, check the preferred color scheme
+        if (themeStatus === undefined || themeStatus === null) {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                themeStatus = 'dark';
+            } else {
+                themeStatus = 'light';
+            }
+        }
+
+        // Now you can use the themeStatus variable in your code
+        if (themeStatus) {
+            document.documentElement.style.setProperty('--preloader-background-color', '#202124');
+            document.documentElement.style.setProperty('--preloader-text-color', '#fff');
+        } else {
+            document.documentElement.style.setProperty('--preloader-background-color', '#fff');
+            document.documentElement.style.setProperty('--preloader-text-color', '#000');
+        }
+
+        window.addEventListener('load', function () {
+            setTimeout(hidePreloader, 5000); // Call hidePreloader after 5000 milliseconds if not already called by animation
+        });
+
+        function hidePreloader() {
+            var preloader = document.querySelector('.preloader');
+            preloader.style.opacity = '0';
+            setTimeout(function () {
+                preloader.style.display = 'none';
+            }, 200);
+        }
+    </script>
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+                <a class="logo-image h-8 w-8 sm:w-10 sm:h-10 mr-3" href="/">
+                    <img src="/images/favicon.ico" class="w-full h-full rounded-xs">
+                </a>
+            
+            <a class="logo-title" href="/">
+                
+                7erry&#39;s Website
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    ARCHIVES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/bangumis"
+                                        >
+                                    <i class="fa-brands fa-youtube fa-fw"></i>
+                                    ANIME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/cinemas"
+                                        >
+                                    <i class="fa-solid fa-film fa-fw"></i>
+                                    CINEMA
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/about"
+                                        >
+                                    <i class="fa-regular fa-user fa-fw"></i>
+                                    ABOUT
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
+                                ARCHIVES
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/bangumis"
+                        >
+                            <span>
+                                ANIME
+                            </span>
+                            
+                                <i class="fa-brands fa-youtube fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/cinemas"
+                        >
+                            <span>
+                                CINEMA
+                            </span>
+                            
+                                <i class="fa-solid fa-film fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/about"
+                        >
+                            <span>
+                                ABOUT
+                            </span>
+                            
+                                <i class="fa-regular fa-user fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+
+            
+            
+                
+                    
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/categories"
+                        >
+                            <span>Categories</span>
+                            <i class="fa-regular fa-folder fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">0</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">4</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">65</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">对开源项目的关键性评分</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/default_avatar.png">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">7erry</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2024-07-22 23:45:47</span>
+        <span class="mobile">2024-07-22 23:45:47</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2024-07-22 23:45:47</span>
+            <span class="mobile">2024-07-22 23:45:47</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/Tech-Blog/">Tech Blog</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>3.1k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>11 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<p>在现代世界中，复杂的系统和系统系统是社会和企业运作不可或缺的一部分，能够理解和管理这些系统和组件可能给它们支持的使命带来的风险变得越来越重要。然而，在资源有限的世界里，不可能对所有资产都应用平等的保护。</p>
+<p>关键性分析可帮助行业根据资产对运营和安全的重要性评估并识别关键资产，进而确定维护活动的优先级，这种方法有助于识别对维持运营和降低安全风险至关重要的关键资产。通过将维护工作集中在这些关键组件上，组织可以防止停机并最大程度地减少潜在危险。它提供了一个决策框架，使行业能够有效地分配资源。通过优先考虑非常重要的领域，企业可以在降低风险和提高效率之间取得平衡。临界性分析在将理论风险转化为实际信息方面发挥着至关重要的作用，使行业能够就将维护工作投入到何处做出明智的选择。</p>
+<h2 id="Criticality-Score-Introduction"><a href="#Criticality-Score-Introduction" class="headerlink" title="Criticality Score Introduction"></a><a class="link"   target="_blank" rel="noopener" href="https://github.com/ossf/criticality_score/tree/main" >Criticality Score<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> Introduction</h2><p>大大小小的开源项目都面临着资源分配的问题，包括所需的时间、资源和关注度。需要一个将关键项目与可为其提供支持的组织紧密联系起来的方法</p>
+<p>2020 年，谷歌联合开源安全基金会 (OpenSSF) 推出 “Criticality Score”，这是一个能够通过具体指标来量化开源项目的评估工具。这些指标包括开源项目创立时间长度、贡献者数量、提交频率、过去一年的发版数量、过去 90 天内关闭和更新的 issue 数量、回复频率、commit 信息中提到的项目数量以及其他参数。<br>基于上述指标，只需提供项目的 GitHub 仓库 URL 地址，Criticality Score 就会计算出区间为 0-1 的分数来表示开源项目在此标准下的关键性。</p>
+<p>OpenSSF Criticality Score 的目的在于</p>
+<ul>
+<li>为每个开源项目生成 “关键性” 分数</li>
+<li>创建开源社区所依赖的重要项目列表</li>
+<li>使用这些数据来主动改善这些重要项目的安全态势</li>
+</ul>
+<p>2023 年 2 月，Criticality Score 发布了重要更新 <a class="link"   target="_blank" rel="noopener" href="https://github.com/ossf/criticality_score/releases/tag/v2.0.0" >v2.0<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>，官方称这是一次 “大改造”。此版本采用 Go 语言进行完全重写，并且不再依赖 Python。此外还对许多评分指标进行了完善，以及修复错误和增强功能。</p>
+<h2 id="Criticality-Score-Algorithm"><a href="#Criticality-Score-Algorithm" class="headerlink" title="Criticality Score Algorithm"></a><a href="(https://github.com/ossf/criticality_score/blob/main/Quantifying_criticality_algorithm.pdf)">Criticality Score Algorithm</a></h2><p>Criticality Score 使用“包”这一术语称呼被评分的单位。一个包的评分需要综合考虑该包在多个指标下的表现，而 Criticality Score 的评分算法采用了以下默认指标：</p>
+<table>
+<thead>
+<tr>
+<th>参数 (S<sub>i</sub>)</th>
+<th align="right">权重 (&alpha;<sub>i</sub>)</th>
+<th align="right">最大阈值 (T<sub>i</sub>)</th>
+<th>描述</th>
+<th>采用原因</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>created_since</td>
+<td align="right">1</td>
+<td align="right">120</td>
+<td>项目创建的时间（以月为单位）</td>
+<td>较旧的项目有更高的机会被广泛使用或依赖</td>
+</tr>
+<tr>
+<td>updated_since</td>
+<td align="right">-1</td>
+<td align="right">120</td>
+<td>自项目上次更新以来的时间（以月为单位）</td>
+<td>最近没有提交的并且也不被维护项目有较低的被依赖度</td>
+</tr>
+<tr>
+<td><strong>contributor_count</strong></td>
+<td align="right"><strong>2</strong></td>
+<td align="right">5000</td>
+<td>项目贡献者的数量（有提交）</td>
+<td>不同的贡献者参与表明了项目的关键性</td>
+</tr>
+<tr>
+<td>org_count</td>
+<td align="right">1</td>
+<td align="right">10</td>
+<td>贡献者所属的不同组织的数量</td>
+<td>表示跨组织依赖性</td>
+</tr>
+<tr>
+<td>commit_frequency</td>
+<td align="right">1</td>
+<td align="right">1000</td>
+<td>去年平均每周提交次数</td>
+<td>较高的代码变更在某种意义上表明了项目的关键性。当然，其对漏洞也更敏感</td>
+</tr>
+<tr>
+<td>recent_releases_count</td>
+<td align="right">0.5</td>
+<td align="right">26</td>
+<td>去年发布的数量</td>
+<td>频繁发布表明用户依赖度较高。但是这个参数权重较轻，因为该参数并不总是使用</td>
+</tr>
+<tr>
+<td>closed_issues_count</td>
+<td align="right">0.5</td>
+<td align="right">5000</td>
+<td>过去 90 天内关闭的问题数量</td>
+<td>表示贡献者高度参与，并专注于解决用户的issue。较低的权重，因为它依赖于项目贡献者</td>
+</tr>
+<tr>
+<td>updated_issues_count</td>
+<td align="right">0.5</td>
+<td align="right">5000</td>
+<td>过去 90 天内更新的问题数量</td>
+<td>表示贡献者参与度高。较低的权重，因为它依赖于项目贡献者</td>
+</tr>
+<tr>
+<td>comment_frequency</td>
+<td align="right">1</td>
+<td align="right">15</td>
+<td>过去 90 天内每个问题的平均评论数</td>
+<td>表示用户活跃度和依赖性高</td>
+</tr>
+<tr>
+<td><strong>dependents_count</strong></td>
+<td align="right"><strong>2</strong></td>
+<td align="right">500000</td>
+<td>N在commit 消息中提及的项目数量</td>
+<td>表示该仓库的使用情况，通常用在在版本迭代中。此参数适用于所有语言，包括没有包依赖关系图的 C&#x2F;C++（虽然是 hack-ish）。计划在不久的将来添加包依赖树</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>这些值可以通过可执行程序的 <code>-scoring-config</code> 参数或 <code>original_pike.yml</code> 配置文件进行修改，并正根据相关社区的探讨调优</p>
+</blockquote>
+<p>Criticality Score 的评分指标可以由用户自行定义与增减，而所有指标都有着其对应的 Signal ，一个非负值用以量化该指标下项目的关键性。每一个包都有多个指标，但显然不同指标在同一评价体系下与同一指标在不同评价体系下的重要程度不可能完全相同，因此每个 Signal 除了具有数值 S<sub>i</sub> ， 还具有可任意设置的正权重 α<sub>i</sub>。</p>
+<p>出于统计学的考虑（许多 Signal 具有类似 Zipf 的分布），在我们量化一个包在特定指标下的关键性时，与权重相乘的不应该是 S<sub>i</sub> ， 而是 log(1+S<sub>i</sub>) 以通过非线性的方式缩放 Signal （加 1 避免负值），毕竟一个有着 10,000 个依赖的包肯定比一个只有 1,000 个依赖的包重要，但不会重要十倍。</p>
+<p>人们在评分采用的评分体系大概有两种，一种是不设阈值的，一种是设立阈值的。例如当我为一部动画基于画面，剧情，摄影这三个指标以三分为满分评了 2.5 分时，在第一种评分体系下，这部动画可能出现一些极端情况，例如它的画面是 0.5 分，摄影是 0 分，但剧情实在太出彩了，我为它的剧情打了 2 分的高分。事实上我也确实是这样打分的。但是在不少评分网站上，哪怕剧情这一项再出彩，剧情这一项的最高得分也只能达到 1 分，而要想达到 2.5 分，就必须在画面与摄影两个指标上都拿到阈值内的分数才行。Criticality Score 采用了后者，任何高于阈值的 Signal 值都将处于阈值的最大重要性，它们都会被认为是真正 “Critical” 的。</p>
+<p>基于以上考量而得出并进行归一化（为保持分数范围有界干脆使其处于[0,1]）后得出的计算公式为</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ossf/criticality_score/main/images/formula.png"
+                      alt="formula"
+                ></p>
+<h2 id="Criticality-Score-Process-Abstract"><a href="#Criticality-Score-Process-Abstract" class="headerlink" title="Criticality Score Process Abstract"></a>Criticality Score Process Abstract</h2><p>Criticality Score 的数据采集模块与评分模块被解耦为了单独的程序，可以单独执行数据采集，评分，序列化为CSV文件这三项任务，也可以直接使用 Criticality Score 程序将这三项任务一步处理到位。为了方便自动生成开源项目的关键性分数，OpenSSF 还提供了一个枚举 Github 上的开源项目的工具，它的输出可以直接用作 Criticality Score 的输入。为方便简单介绍 Criticality Score 的核心逻辑，下文给出的有关 Criticality Score 具体实现的核心代码将去除其中的异常处理或日志信息记录等基础逻辑。代码摘要如下</p>
+<div class="code-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">// 读取命令行参数进行解析</span></span><br><span class="line">    initFlags()</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取评分器，其评分逻辑为逐行读取 Signal 的数值与权重计算出结果，再逐行相加，与上述算法描述一致</span></span><br><span class="line">    s := getScorer(logger)</span><br><span class="line">    scoreColumnName := generateScoreColumnName(s)</span><br><span class="line"></span><br><span class="line">    ctx := context.Background()</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置每个主机的空闲连接数</span></span><br><span class="line">    http.DefaultTransport.(*http.Transport).MaxIdleConnsPerHost = *workersFlag * <span class="number">5</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 准备数据采集所需的运行参数</span></span><br><span class="line">    opts := []collector.Option&#123;</span><br><span class="line">        collector.EnableAllSources(),</span><br><span class="line">        collector.GCPProject(*gcpProjectFlag),</span><br><span class="line">        collector.GCPDatasetName(*depsdevDatasetFlag),</span><br><span class="line">        collector.GCPDatasetTTL(time.Hour * time.Duration(*depsdevTTLFlag)),</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> *depsdevDisableFlag &#123;</span><br><span class="line">        opts = <span class="built_in">append</span>(opts, collector.DisableSource(collector.SourceTypeDepsDev))</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建数据采集器实例</span></span><br><span class="line">    c, err := collector.New(ctx, logger, opts...)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建读取数据用的迭代器</span></span><br><span class="line">    iter, err := inputiter.New(flag.Args())</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 打开输出文件</span></span><br><span class="line">    w, err := outfile.Open(context.Background())</span><br><span class="line"></span><br><span class="line">    extras := []<span class="type">string</span>&#123;&#125;</span><br><span class="line">    <span class="keyword">if</span> s != <span class="literal">nil</span> &#123;</span><br><span class="line">        extras = <span class="built_in">append</span>(extras, scoreColumnName)</span><br><span class="line">    &#125;</span><br><span class="line">    out := formatType.New(w, c.EmptySets(), extras...)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建数据采集线程池与其通道</span></span><br><span class="line">    repos := <span class="built_in">make</span>(<span class="keyword">chan</span> *url.URL)</span><br><span class="line">    wait := workerpool.WorkerPool(*workersFlag, <span class="function"><span class="keyword">func</span><span class="params">(worker <span class="type">int</span>)</span></span> &#123;</span><br><span class="line">        innerLogger := logger.With(zap.Int(<span class="string">&quot;worker&quot;</span>, worker))</span><br><span class="line">        <span class="comment">// 读取通道中的开源项目仓库 URL 并抛入至数据采集线程池进行数据采集</span></span><br><span class="line">        <span class="keyword">for</span> u := <span class="keyword">range</span> repos &#123;</span><br><span class="line">            l := innerLogger.With(zap.String(<span class="string">&quot;url&quot;</span>, u.String()))</span><br><span class="line">            ss, err := c.Collect(ctx, u, <span class="string">&quot;&quot;</span>)</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 根据参数设置情况判断是否输出评分</span></span><br><span class="line">            extras := []signalio.Field&#123;&#125;</span><br><span class="line">            <span class="keyword">if</span> s != <span class="literal">nil</span> &#123;</span><br><span class="line">                f := signalio.Field&#123;</span><br><span class="line">                    Key:   scoreColumnName,</span><br><span class="line">                    <span class="comment">// Scorer 会逐行读取各 signal 值并按照计算公式求出 Criticality Score</span></span><br><span class="line">                    Value: fmt.Sprintf(<span class="string">&quot;%.5f&quot;</span>, s.Score(ss)),</span><br><span class="line">                &#125;</span><br><span class="line">                extras = <span class="built_in">append</span>(extras, f)</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 存储 Signal</span></span><br><span class="line">            <span class="keyword">if</span> err := out.WriteSignals(ss, extras...); err != <span class="literal">nil</span> &#123;</span><br><span class="line">                l.With(</span><br><span class="line">                    zap.Error(err),</span><br><span class="line">                ).Error(<span class="string">&quot;Failed to write signal set&quot;</span>)</span><br><span class="line">                os.Exit(<span class="number">1</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 从输入中读取仓库地址并通过通道发送至数据采集线程池</span></span><br><span class="line">    <span class="keyword">for</span> iter.Next() &#123;</span><br><span class="line">        line := iter.Item()</span><br><span class="line"></span><br><span class="line">        u, err := url.Parse(strings.TrimSpace(line))</span><br><span class="line">        repos &lt;- u</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">close</span>(repos)</span><br><span class="line">    <span class="comment">// 主线程阻塞至所有线程工作完成</span></span><br><span class="line">    wait()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>Criticality Score 的实现逻辑非常简单。作为命令行程序，Criticality Score 首先会解析命令行参数并根据命令行参数以决定程序行为。Criticality Score 实现了一个基于 Go Routine 进行多线程 HTTP 请求以采集所需数据的线程池，并将读取的仓库地址逐个通过 Go 的 Channel 发送至线程池以降低数据采集过程中的网络与文件 I&#x2F;O 阻塞，进而完成采集任务。在通过命令行参数开启了评分选项时，Criticality Score 还会在每一个项目数据采集结束后读取采集数据计算评分。</p>
+<h2 id="争议与展望"><a href="#争议与展望" class="headerlink" title="争议与展望"></a>争议与展望</h2><p>在阅读评分算法时很难不感到这一算法未免有些过于简易，事实上，Criticality Score 自问世以来一直面临着比较多的争议。在源代码仓库的 Issue 中这些争议主要包括</p>
+<ul>
+<li>Criticality Score 使用的数据集不够大，以至于其 Top 200 项目列表遗漏了较多按照其评分算法理应位于列表上的项目<ul>
+<li><a class="link"   target="_blank" rel="noopener" href="https://github.com/ossf/criticality_score/issues/15" >GeoTools not showing in top 200 for java projects, run criticality score on larger sample set #15<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://github.com/ossf/criticality_score/issues/33" >Find workaround for github api limitation of 1000 repos in results, expand sample set beyond 1000 by stars before sorting by criticality score #33<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+</ul>
+</li>
+<li>添加新的关键性评分指标<ul>
+<li><a class="link"   target="_blank" rel="noopener" href="https://github.com/ossf/criticality_score/issues/18" >Check here for why downloads count not used in criticality score. #18<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://github.com/ossf/criticality_score/issues/8" >Criticality score should take into account dependency tree information, esp inactive,ignored projects that are still widely deployed. #8<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+</ul>
+</li>
+<li>对依赖关系的识别与计算方式存在问题<ul>
+<li><a class="link"   target="_blank" rel="noopener" href="https://github.com/ossf/criticality_score/issues/55" >dependents_count seems extremely unreliable #55<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://github.com/ossf/criticality_score/issues/39" >What is dependents_count parameter, looks suspect ? #39<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://github.com/ossf/criticality_score/issues/31" >Ideas to identify direct dependencies #31<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+</ul>
+</li>
+<li>对 Criticality Score 评分算法的准确性的探讨<ul>
+<li><a class="link"   target="_blank" rel="noopener" href="https://github.com/ossf/criticality_score/issues/367" >Is there any details on the validation of the metrics and algorithm? #367<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://github.com/ossf/criticality_score/issues/30" >What does “criticality” mean here? #30<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://github.com/ossf/criticality_score/issues/103" >Clarify decision process #103<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://github.com/ossf/criticality_score/issues/82" >Ideas for Criticality Score V2 from WG discussions<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://github.com/ossf/criticality_score/issues/44" >Rethinking “criticality” #44<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://github.com/ossf/criticality_score/issues/26" >Idea for tuning weights #26<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+</ul>
+</li>
+<li>其它<ul>
+<li><a class="link"   target="_blank" rel="noopener" href="https://github.com/ossf/criticality_score/issues/22" >Language implementation is less critical than language project generator, create list for TypeScript projects inside JS list. #22<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://github.com/ossf/criticality_score/issues/102" >Doc: Criticality Score and Security Risk, Improving Criticality Score. #102<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+</ul>
+</li>
+</ul>
+<p>OSSF 想将该关键性评分作为类似于学术界的 H-Index 指数的评价指标实现并推广，但其评分算法，评分参考指标甚至是对于关键性的定义都存在着不少的争议，事实上（私以为）也确实欠缺一些更深入的研究与考虑，Criticality Score 的项目具体实现实际上也因此比较简单。但对于软件&#x2F;资产的重要性&#x2F;安全性&#x2F;性能表现进行评估的需求确实始终存在，有待后人提出考虑更周全的评分算法&#x2F;模型进行更准确而有效的判断。</p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a class="link"   target="_blank" rel="noopener" href="https://github.com/ossf/criticality_score" >Criticality Score<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a><br><a class="link"   target="_blank" rel="noopener" href="https://fiixsoftware.com/blog/criticality-analysis-what-is-it-and-how-is-it-done/" >Criticality analysis: What is it and how is it done?<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a><br><a class="link"   target="_blank" rel="noopener" href="https://link.springer.com/chapter/10.1007/978-3-319-58045-6_6" >Criticality Analysis for Maintenance Purposes<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a><br><a class="link"   target="_blank" rel="noopener" href="https://www.reliableplant.com/criticality-analysis-31830" >Criticality Analysis: What It Is and Why It’s Important<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a><br><a class="link"   target="_blank" rel="noopener" href="https://sensemore.io/what-is-criticality-analysis/" >What is Criticality Analysis and How to Do it<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a><br><a class="link"   target="_blank" rel="noopener" href="https://www.nist.gov/publications/criticality-analysis-process-model" >Criticality Analysis Process Model<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+
+		</div>
+
+		
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> 对开源项目的关键性评分</li>
+        <li><strong>Author:</strong> 7erry</li>
+        <li><strong>Created at
+                :</strong> 2024-07-22 23:45:47</li>
+        
+            <li>
+                <strong>Updated at
+                    :</strong> 2024-07-22 23:45:47
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://7erryx.github.io/2024/07/22/Tech Blog/对开源项目的关键性评分/
+        </li>
+        <li>
+            <strong>
+                License:
+            </strong>
+            
+
+            
+                This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>.
+            
+        </li>
+    </ul>
+</div>
+
+		</div>
+		
+
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="prev" rel="prev" href="/2024/07/24/Research%20Note/%E7%A0%94%E7%A9%B6%E7%9A%84%E8%89%BA%E6%9C%AF-%E2%85%A2/">
+					<span class="left arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-left"></i>
+					</span>
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">《研究的艺术》 Ⅲ</span>
+						<span class="post-nav-item">Prev posts</span>
+					</span>
+				</a>
+			</div>
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2024/07/17/Vulnerability%20Investigation/CVE-2010-3333-%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">CVE-2010-3333 漏洞研究</span>
+						<span class="post-nav-item">Next posts</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">On this page</div>
+		<div class="page-title">对开源项目的关键性评分</div>
+		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Criticality-Score-Introduction"><span class="nav-text">Criticality Score Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Criticality-Score-Algorithm"><span class="nav-text">Criticality Score Algorithm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Criticality-Score-Process-Abstract"><span class="nav-text">Criticality Score Process Abstract</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%89%E8%AE%AE%E4%B8%8E%E5%B1%95%E6%9C%9B"><span class="nav-text">争议与展望</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-text">Reference</span></a></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2020</span>
+              -
+            
+            2025&nbsp;&nbsp;<i class="fa-regular fa-computer-classic"></i>&nbsp;&nbsp;<a href="/">7erry</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        65 posts in total
+                    </span>
+                    
+                        <span>
+                            217.5k words in total
+                        </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.4</a></span>
+        </div>
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
+</div>
+
+	
+	<div class="search-pop-overlay">
+	<div class="popup search-popup">
+		<div class="search-header">
+			<span class="search-input-field-pre">
+				<i class="fa-solid fa-keyboard"></i>
+			</span>
+			<div class="search-input-container">
+				<input autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="Search..." spellcheck="false" type="search" class="search-input">
+			</div>
+			<span class="popup-btn-close">
+				<i class="fa-solid fa-times"></i>
+			</span>
+		</div>
+		<div id="search-result">
+			<div id="no-result">
+				<i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+			</div>
+		</div>
+	</div>
+</div>
+	
+
+</main>
+
+
+
+<script src="/js/build/libs/Swup.min.js"></script>
+
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+	
+<script src="/js/build/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/build/utils.js" type="module"></script>
+
+<script src="/js/build/main.js" type="module"></script>
+
+<script src="/js/build/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/build/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/build/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/build/layouts/categoryList.js" type="module"></script>
+
+
+
+    
+<script src="/js/build/tools/localSearch.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/runtime.js"></script>
+
+    
+<script src="/js/build/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/build/libs/Typed.min.js"></script>
+
+  
+<script src="/js/build/plugins/typed.js" type="module"></script>
+
+
+
+
+    
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@9.3.0/dist/mermaid.min.js"></script>
+    
+    
+<script src="/js/build/plugins/mermaid.js"></script>
+
+
+
+
+
+
+
+
+
+    
+<script src="/js/build/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+<script src="/js/build/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+
+	
+</body>
+
+</html>

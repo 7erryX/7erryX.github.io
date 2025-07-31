@@ -2,7 +2,25 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://7erryx.github.io/2025/07/07/CVE-2017-0144-%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/</loc>
+    <loc>https://7erryx.github.io/2025/07/31/CVE-2017-7494-Investigation/</loc>
+    
+    <lastmod>2025-07-31</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://7erryx.github.io/2025/07/31/Research%20Note/Vulnerability-Lifecycle-%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%89%8D%E4%B8%96%E4%BB%8A%E7%94%9F/</loc>
+    
+    <lastmod>2025-07-31</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://7erryx.github.io/2025/07/07/CVE-2017-0144-Investigation/</loc>
     
     <lastmod>2025-07-07</lastmod>
     
@@ -11,7 +29,7 @@
   </url>
   
   <url>
-    <loc>https://7erryx.github.io/2025/07/07/CVE-2021-44228-%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/</loc>
+    <loc>https://7erryx.github.io/2025/07/07/CVE-2021-44228-Investigation/</loc>
     
     <lastmod>2025-07-07</lastmod>
     
@@ -47,7 +65,7 @@
   </url>
   
   <url>
-    <loc>https://7erryx.github.io/2025/06/06/Vulnerability%20Investigation/CVE-2014-0160%20%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/</loc>
+    <loc>https://7erryx.github.io/2025/06/06/Vulnerability%20Investigation/CVE-2014-0160-Investigation/</loc>
     
     <lastmod>2025-06-06</lastmod>
     
@@ -56,7 +74,7 @@
   </url>
   
   <url>
-    <loc>https://7erryx.github.io/2025/05/25/Vulnerability%20Investigation/CVE-2011-2110%20%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/</loc>
+    <loc>https://7erryx.github.io/2025/05/25/Vulnerability%20Investigation/CVE-2011-2110-Investigation/</loc>
     
     <lastmod>2025-05-25</lastmod>
     
@@ -65,7 +83,7 @@
   </url>
   
   <url>
-    <loc>https://7erryx.github.io/2025/05/05/Vulnerability%20Investigation/CVE-2015-0313%20%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/</loc>
+    <loc>https://7erryx.github.io/2025/05/05/Vulnerability%20Investigation/CVE-2015-0313-Investigation/</loc>
     
     <lastmod>2025-05-05</lastmod>
     
@@ -74,7 +92,7 @@
   </url>
   
   <url>
-    <loc>https://7erryx.github.io/2025/04/01/Vulnerability%20Investigation/CVE-2013-3346%20%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/</loc>
+    <loc>https://7erryx.github.io/2025/04/01/Vulnerability%20Investigation/CVE-2013-3346-Investigation/</loc>
     
     <lastmod>2025-04-01</lastmod>
     
@@ -92,7 +110,7 @@
   </url>
   
   <url>
-    <loc>https://7erryx.github.io/2025/03/15/Vulnerability%20Investigation/CVE-2013-1347%20%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/</loc>
+    <loc>https://7erryx.github.io/2025/03/15/Vulnerability%20Investigation/CVE-2013-1347-Investigation/</loc>
     
     <lastmod>2025-03-15</lastmod>
     
@@ -101,7 +119,7 @@
   </url>
   
   <url>
-    <loc>https://7erryx.github.io/2025/03/03/Vulnerability%20Investigation/CVE-2011-0065%20%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/</loc>
+    <loc>https://7erryx.github.io/2025/03/03/Vulnerability%20Investigation/CVE-2011-0065-Investigation/</loc>
     
     <lastmod>2025-03-03</lastmod>
     
@@ -110,7 +128,7 @@
   </url>
   
   <url>
-    <loc>https://7erryx.github.io/2025/02/22/Vulnerability%20Investigation/CVE-2014-0502%20%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/</loc>
+    <loc>https://7erryx.github.io/2025/02/22/Vulnerability%20Investigation/CVE-2014-0502-Investigation/</loc>
     
     <lastmod>2025-02-22</lastmod>
     
@@ -119,7 +137,7 @@
   </url>
   
   <url>
-    <loc>https://7erryx.github.io/2025/02/02/Vulnerability%20Investigation/CVE-2010-3974%20%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/</loc>
+    <loc>https://7erryx.github.io/2025/02/02/Vulnerability%20Investigation/CVE-2010-3974-Investigation/</loc>
     
     <lastmod>2025-02-02</lastmod>
     
@@ -128,7 +146,7 @@
   </url>
   
   <url>
-    <loc>https://7erryx.github.io/2025/01/11/Vulnerability%20Investigation/CVE-2012-3569%20%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/</loc>
+    <loc>https://7erryx.github.io/2025/01/11/Vulnerability%20Investigation/CVE-2012-3569-Investigation/</loc>
     
     <lastmod>2025-01-11</lastmod>
     
@@ -137,7 +155,7 @@
   </url>
   
   <url>
-    <loc>https://7erryx.github.io/2025/01/01/Vulnerability%20Investigation/CVE-2012-0809%20%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/</loc>
+    <loc>https://7erryx.github.io/2025/01/01/Vulnerability%20Investigation/CVE-2012-0809-Investigation/</loc>
     
     <lastmod>2025-01-01</lastmod>
     
@@ -164,7 +182,7 @@
   </url>
   
   <url>
-    <loc>https://7erryx.github.io/2024/12/24/Vulnerability%20Investigation/CVE-2013-2551-%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/</loc>
+    <loc>https://7erryx.github.io/2024/12/24/Vulnerability%20Investigation/CVE-2013-2551-Investigation/</loc>
     
     <lastmod>2024-12-24</lastmod>
     
@@ -173,7 +191,7 @@
   </url>
   
   <url>
-    <loc>https://7erryx.github.io/2024/12/12/Vulnerability%20Investigation/CVE-2013-0750-%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/</loc>
+    <loc>https://7erryx.github.io/2024/12/12/Vulnerability%20Investigation/CVE-2013-0750-Investigation/</loc>
     
     <lastmod>2024-12-12</lastmod>
     
@@ -191,7 +209,7 @@
   </url>
   
   <url>
-    <loc>https://7erryx.github.io/2024/11/11/Vulnerability%20Investigation/CVE-2012-0774-%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/</loc>
+    <loc>https://7erryx.github.io/2024/11/11/Vulnerability%20Investigation/CVE-2012-0774-Investigation/</loc>
     
     <lastmod>2024-11-11</lastmod>
     
@@ -200,7 +218,7 @@
   </url>
   
   <url>
-    <loc>https://7erryx.github.io/2024/11/01/Vulnerability%20Investigation/CVE-2011-0027-%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/</loc>
+    <loc>https://7erryx.github.io/2024/11/01/Vulnerability%20Investigation/CVE-2011-0027-Investigation/</loc>
     
     <lastmod>2024-11-01</lastmod>
     
@@ -218,7 +236,7 @@
   </url>
   
   <url>
-    <loc>https://7erryx.github.io/2024/10/24/Vulnerability%20Investigation/CVE-2012-1876-%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/</loc>
+    <loc>https://7erryx.github.io/2024/10/24/Vulnerability%20Investigation/CVE-2012-1876-Investigation/</loc>
     
     <lastmod>2024-10-24</lastmod>
     
@@ -227,7 +245,7 @@
   </url>
   
   <url>
-    <loc>https://7erryx.github.io/2024/10/10/Vulnerability%20Investigation/CVE-2013-0077-%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/</loc>
+    <loc>https://7erryx.github.io/2024/10/10/Vulnerability%20Investigation/CVE-2013-0077-Investigation/</loc>
     
     <lastmod>2024-10-10</lastmod>
     
@@ -245,7 +263,7 @@
   </url>
   
   <url>
-    <loc>https://7erryx.github.io/2024/09/19/Vulnerability%20Investigation/CVE-2012-0003-%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/</loc>
+    <loc>https://7erryx.github.io/2024/09/19/Vulnerability%20Investigation/CVE-2012-0003-Investigation/</loc>
     
     <lastmod>2024-09-19</lastmod>
     
@@ -254,7 +272,7 @@
   </url>
   
   <url>
-    <loc>https://7erryx.github.io/2024/09/09/Vulnerability%20Investigation/CVE-2010-2553-%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/</loc>
+    <loc>https://7erryx.github.io/2024/09/09/Vulnerability%20Investigation/CVE-2010-2553-Investigation/</loc>
     
     <lastmod>2024-09-09</lastmod>
     
@@ -263,7 +281,7 @@
   </url>
   
   <url>
-    <loc>https://7erryx.github.io/2024/08/18/Vulnerability%20Investigation/CVE-2012-0158-%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/</loc>
+    <loc>https://7erryx.github.io/2024/08/18/Vulnerability%20Investigation/CVE-2012-0158-Investigation/</loc>
     
     <lastmod>2024-08-18</lastmod>
     
@@ -272,7 +290,7 @@
   </url>
   
   <url>
-    <loc>https://7erryx.github.io/2024/08/08/Vulnerability%20Investigation/CVE-2011-0104-%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/</loc>
+    <loc>https://7erryx.github.io/2024/08/08/Vulnerability%20Investigation/CVE-2011-0104-Investigation/</loc>
     
     <lastmod>2024-08-08</lastmod>
     
@@ -299,7 +317,7 @@
   </url>
   
   <url>
-    <loc>https://7erryx.github.io/2024/07/17/Vulnerability%20Investigation/CVE-2010-3333-%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/</loc>
+    <loc>https://7erryx.github.io/2024/07/17/Vulnerability%20Investigation/CVE-2010-3333-Investigation/</loc>
     
     <lastmod>2024-07-17</lastmod>
     
@@ -326,7 +344,7 @@
   </url>
   
   <url>
-    <loc>https://7erryx.github.io/2024/07/07/Vulnerability%20Investigation/CVE-2010-2883-%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/</loc>
+    <loc>https://7erryx.github.io/2024/07/07/Vulnerability%20Investigation/CVE-2010-2883-Investigation/</loc>
     
     <lastmod>2024-07-07</lastmod>
     
@@ -634,7 +652,7 @@
 
   <url>
     <loc>https://7erryx.github.io/</loc>
-    <lastmod>2025-07-07</lastmod>
+    <lastmod>2025-07-31</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -644,28 +662,28 @@
   
   <url>
     <loc>https://7erryx.github.io/categories/Vulnerability-Investigation/</loc>
-    <lastmod>2025-07-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://7erryx.github.io/categories/Life-Spark/</loc>
-    <lastmod>2025-07-07</lastmod>
+    <lastmod>2025-07-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://7erryx.github.io/categories/Research-Note/</loc>
-    <lastmod>2025-07-07</lastmod>
+    <lastmod>2025-07-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://7erryx.github.io/categories/Life-Spark/</loc>
+    <lastmod>2025-07-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://7erryx.github.io/categories/Tech-Blog/</loc>
-    <lastmod>2025-07-07</lastmod>
+    <lastmod>2025-07-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>

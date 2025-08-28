@@ -71,7 +71,7 @@ Ungoverned Usage of 3rd Party Services 第三方服务的不受控使用 | [Ungo
 Improper Artifact Integrity Validation 不正确的工件完整性验证 | [Improper-Artifact-Integrity-Validation](https://owasp.org/www-project-top-10-ci-cd-security-risks/CICD-SEC-09-Improper-Artifact-Integrity-Validation)
 Insufficient Logging and Visibility 日志记录和可见性不足 | [Insufficient-Logging-And-Visibility](https://owasp.org/www-project-top-10-ci-cd-security-risks/CICD-SEC-10-Insufficient-Logging-And-Visibility)
 
-更多 DevSecOps 的基础知识或者说是完成这个靶场所需要的前置知识可见文末[参考链接](#reference)
+更多 DevSecOps 的基础知识或者说是完成这个靶场所需要的前置知识可见文末 [参考链接](#reference)
 
 ## Writeup
 
@@ -124,7 +124,7 @@ pipeline {
 }
 ```
 
-> 不了解 Jenkinsfile 的语法的话可以通过文末提供的[链接](#reference)花五分钟快速学一下
+> 不了解 Jenkinsfile 的语法的话可以通过文末提供的 [链接](#reference) 花五分钟快速学一下
 
 攻击者能够（结合 hint）发现 secret 存在全局范围的 Jenkins 凭证存储中，因此只需要在 Jenkinsfile 中添加读取 flag 的代码即可获取 flag
 
@@ -260,7 +260,7 @@ git show 43f216c2268a94ff03e5400cd4ca7a11243821b0
         }
 ```
 
-这意味着想要读取 Flag 就必须要通过 main 分支触发的 CI/CD 流才能实现。不过这很好解决，直接把这个条件判断删除掉，但在 push时又会发现攻击者不对该仓库具有读写权限。不过这依然不是难点，我们可以通过阅读 hint 解决，也就是不直接 clone 这个仓库，而是通过 fork 它到自己的仓库空间下使自己能够对自己 fork 来的仓库可读可写，再在修改 Jenkinsfile 后为原仓库提 Pr 触发 CI/CD 流。但是这样触发的 pipeline 输出 log 中不会有我们想要的 flag，阅读日志会发现
+这意味着想要读取 Flag 就必须要通过 main 分支触发的 CI/CD 流才能实现。不过这很好解决，直接把这个条件判断删除掉，但在 push 时又会发现攻击者不对该仓库具有读写权限。不过这依然不是难点，我们可以通过阅读 hint 解决，也就是不直接 clone 这个仓库，而是通过 fork 它到自己的仓库空间下使自己能够对自己 fork 来的仓库可读可写，再在修改 Jenkinsfile 后为原仓库提 Pr 触发 CI/CD 流。但是这样触发的 pipeline 输出 log 中不会有我们想要的 flag，阅读日志会发现
 
 ```plaintext
 ERROR: Could not find credential entry with ID 'flag2'
@@ -268,9 +268,9 @@ ERROR: Could not find credential entry with ID 'flag2'
 
 事实上，在探索 Jenkins 控制台时，能够发现本题存在两条 pipeline 。而在 pr 时只会执行 `wonderland-caterpillar-test` 这一条 pipeline，而我们想要的 flag2 应该放在了 `wonderland-caterpillar-prod` 这一条 pipeline 的环境中
 
->读名字能猜出来 test 是测试环境而 prod(product) 是生产环境，它们的生产管理实践可参阅[参考链接](#reference)
+>读名字能猜出来 test 是测试环境而 prod(product) 是生产环境，它们的生产管理实践可参阅 [参考链接](#reference)
 
-参考提示2，在测试 pipeline 中输出测试环境的所有环境变量，能够发现 GITEA_TOKEN，查阅一下它的作用，能够发现通过在 HTTP 标准认证使用它，攻击者就能够对上游源代码仓库进行读写，进而实现公共 PPE (Public-PPE / 3PE) 攻击
+参考提示 2，在测试 pipeline 中输出测试环境的所有环境变量，能够发现 GITEA_TOKEN，查阅一下它的作用，能够发现通过在 HTTP 标准认证使用它，攻击者就能够对上游源代码仓库进行读写，进而实现公共 PPE (Public-PPE / 3PE) 攻击
 
 ![3PE](images/Tech%20Blog/chl4_flag.gif)
 
@@ -353,7 +353,7 @@ pipeline {
 
 ToDo (npm 没配镜像开摆了没做)
 大体上通过攻击目标仓库的依赖仓库实现供应链投毒，进而对目标仓库进行 I-PPE
-攻击原理参阅[参考链接](#reference)
+攻击原理参阅 [参考链接](#reference)
 
 ![principle](images/Tech%20Blog/dependency_c_dia.png)
 
@@ -367,7 +367,7 @@ ToDo (npm 没配镜像开摆了没做)
 
 #### Analysis
 
-Hint 给出了参考资料（[Malicious Code Analysis](https://medium.com/cider-sec/malicious-code-analysis-abusing-sast-mis-configurations-to-hack-ci-systems-13d5c1b37ffe)并建议了解 Checkov，后者是一个开源静态分析工具，旨在帮助开发人员和 DevOps 团队发现并修复基础设施即代码（IaC）中的安全和合规性问题。由 Bridgecrew 开发，支持各种IaC框架，包括Terraform，CloudFormation，Kubernetes，ARM模板等。它扫描IaC文件以识别错误配置、潜在漏洞以及对最佳实践的遵守情况。不出意外本题需要利用它的漏洞实现攻击或需要对它进行某种 Bypass。
+Hint 给出了参考资料（[Malicious Code Analysis](https://medium.com/cider-sec/malicious-code-analysis-abusing-sast-mis-configurations-to-hack-ci-systems-13d5c1b37ffe) 并建议了解 Checkov，后者是一个开源静态分析工具，旨在帮助开发人员和 DevOps 团队发现并修复基础设施即代码（IaC）中的安全和合规性问题。由 Bridgecrew 开发，支持各种 IaC 框架，包括 Terraform，CloudFormation，Kubernetes，ARM 模板等。它扫描 IaC 文件以识别错误配置、潜在漏洞以及对最佳实践的遵守情况。不出意外本题需要利用它的漏洞实现攻击或需要对它进行某种 Bypass。
 
 在 Jenkins 控制台的输出中攻击者能够发现 Checkov 的扫描目标与扫描的配置
 
@@ -379,7 +379,7 @@ Hint 给出了参考资料（[Malicious Code Analysis](https://medium.com/cider-
 
 成功获得 flag
 
-> AWS S3 bucket 的配置文件的更多信息见[参考链接](#reference)
+> AWS S3 bucket 的配置文件的更多信息见 [参考链接](#reference)
 
 #### Exploit
 
@@ -481,7 +481,7 @@ pipeline {
 可以发现本题可以进行 D-PPE 攻击，不过通过 Pr 修改 Jenkinsfile 进行 D-PPE 攻击时需要先通过 pipeline 的 Pr check，具体上是 3 个检查
 
 - 增加的单词数和减少的单词数必须相同
-- version文件只有一行，并且符合x.y.z的格式
+- version 文件只有一行，并且符合 x.y.z 的格式
 - version 文件内容发生了更改
 
 修改 Jenkinsfile 后去别的文件里增加 Jenkinsfile 里减少的字符数相等的字符数再让 version 文件的小版本号 +1 即可

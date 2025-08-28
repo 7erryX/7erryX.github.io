@@ -11,7 +11,7 @@ updated: 2024-12-25 18:52:35
 
 翻译如若不周，欢迎指正！
 
-[烤肉视频](https://www.bilibili.com/video/BV14MCPYKE7o)已上传至 Bilibili
+[烤肉视频](https://www.bilibili.com/video/BV14MCPYKE7o) 已上传至 Bilibili
 
 <!--more-->
 
@@ -19,7 +19,7 @@ updated: 2024-12-25 18:52:35
 
 > Hello! Welcome to The Community Forum Session at the Cybersecurity Days. My name is Zhiqiang Lin. I'm a Professor of Computer Science & Engineering at the Ohio State University. I do research on computer security with a particular focus on software security such as vulnerability discovery and software hardening.
 
-你好，欢迎参加[网络安全日](https://it.osu.edu/security/cybersecurity-days)社区论坛会议。我叫[林志强](https://zhiqlin.github.io/)。我是俄亥俄州立大学计算机科学与工程系的教授，从事计算机安全研究，且特别关注例如漏洞发现与软件加固在内的软件安全技术。
+你好，欢迎参加 [网络安全日](https://it.osu.edu/security/cybersecurity-days) 社区论坛会议。我叫 [林志强](https://zhiqlin.github.io/)。我是俄亥俄州立大学计算机科学与工程系的教授，从事计算机安全研究，且特别关注例如漏洞发现与软件加固在内的软件安全技术。
 
 > Today I'm going to talk about a topic which you may have already thought about namely **Why Cybersecurity Is Hard**. The reason of why I would like to give this talk is, year 2021 is really a bad year for cybersecurity. So far we have heard numerous cyber attacks and this includes attacks against SolarWinds, Florida Water Plant, the Microsoft Exchange Server and the Colonial Pipeline. These cyber attacks have caused significant damages to our economy and the society.
 

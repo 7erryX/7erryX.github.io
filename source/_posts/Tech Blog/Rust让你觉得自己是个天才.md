@@ -196,7 +196,7 @@ Who is flying this thing ?
 
 No one remembers all this . It's byzantine and cruel . Your life doesn't have to be this way . Everyone agrees that nulls are bad until it's time to return nothing from a function .
 
-> NULL 的发明者痛恨甚至忏悔自己发明了 NULL ，但这一重要概念又不得不使用。NULL 相关的处理一直都是一件令人头疼的事，除非你用 Rust :P
+> NULL 的发明者痛恨甚至忏悔自己发明了 NULL ，但这一重要概念又不得不使用。NULL 相关的处理一直都是一件令人头疼的事，除非你用 Rust : P
 
 ```Rust
 enum Option<T> { // T can contain any type of value
@@ -278,7 +278,7 @@ Your code can be both HIGHER LEVEL and FASTER in rust than it could if you had h
 - WASM
    WebAssembly
 - 迭代器，Option 与 Result 枚举类型
-   Iterators,Options and Results
+   Iterators, Options and Results
 - 内存安全
    Memory safety
 

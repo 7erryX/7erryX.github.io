@@ -15,7 +15,7 @@ Flask，启动！
 <!--more-->
 ## Flask 简介
 
-Python Flask 是一个知名的轻量级的 Web 应用框架，由 Armin Ronacher 开发于2010年。它的设计理念是简洁而灵活，旨在帮助开发者快速构建 Web 应用程序。Flask 基于 Werkzeug WSGI 工具箱和 Jinja2 模板引擎，同时也受到了 Django 框架的启发
+Python Flask 是一个知名的轻量级的 Web 应用框架，由 Armin Ronacher 开发于 2010 年。它的设计理念是简洁而灵活，旨在帮助开发者快速构建 Web 应用程序。Flask 基于 Werkzeug WSGI 工具箱和 Jinja2 模板引擎，同时也受到了 Django 框架的启发
 
 Flask 的核心功能包括路由分发、模板渲染、表单处理、会话管理等，同时还提供了丰富的扩展库，如 Flask-SQLAlchemy、Flask-RESTful、Flask-Login 等，使开发者能够根据需要灵活地扩展功能
 
@@ -88,7 +88,7 @@ if __name__ == "__main__":
     app.run()
 ```
 
-阅读这段代码，可以看出它首先从 `flask` 模块中引入了 `Flask` ，根据 Python 的命名规范可以判断它应该是一个对象。接着，该程序以 `__name__` 为参数构造了一个 `Flask` 对象实例并命名为 `app`。随后使用了 `app` 内的 `route` 装饰器，以 / 作为参数装饰了函数 `index`，这个函数会返回字符串字面值 HelloWorld 。然后，如果当前程序是被 Python 直接执行而非被导入的，就调用 `app` 实例的 `run` 方法。它的运行效果是在本机的 5000 端口创建了一个 WebServer 。访问 URL localhost:5000/ 我们会收到 "HelloWorld" 字符串作为返回
+阅读这段代码，可以看出它首先从 `flask` 模块中引入了 `Flask` ，根据 Python 的命名规范可以判断它应该是一个对象。接着，该程序以 `__name__` 为参数构造了一个 `Flask` 对象实例并命名为 `app`。随后使用了 `app` 内的 `route` 装饰器，以 / 作为参数装饰了函数 `index`，这个函数会返回字符串字面值 HelloWorld 。然后，如果当前程序是被 Python 直接执行而非被导入的，就调用 `app` 实例的 `run` 方法。它的运行效果是在本机的 5000 端口创建了一个 WebServer 。访问 URL localhost: 5000/ 我们会收到 "HelloWorld" 字符串作为返回
 
 不难看出，这段代码工作的核心，也是理解 Flask 框架工作原理的核心，就在我们引入的 Flask 类上，让我们查看 Flask 类的源代码，看看这个类是如何被实现的
 
@@ -311,7 +311,7 @@ def application(environ,start_response)
 
 ### WerkZeug
 
-WerkZeug 是 Flask 唯一不可或缺的依赖，负责完成 WebServer 中较为底层的工作，例如请求与响应处理、中间件、调试器、实现 URL 到视图的映射、线程保护等等。它非常的强大，不过迫于精力与技术水平的有限，本系列不会深入 WerkZeug 的源码与实现，也不会深入 Jinja2 模板渲染、蓝图等额外功能的源码与实现，而是将主要篇幅放在 Flask 框架作为 WebServer 的核心源码上，如果你对 WerkZeug 感兴趣，可以到它们的[官方仓库](#reference)下阅读相关文档进行更深入的了解
+WerkZeug 是 Flask 唯一不可或缺的依赖，负责完成 WebServer 中较为底层的工作，例如请求与响应处理、中间件、调试器、实现 URL 到视图的映射、线程保护等等。它非常的强大，不过迫于精力与技术水平的有限，本系列不会深入 WerkZeug 的源码与实现，也不会深入 Jinja2 模板渲染、蓝图等额外功能的源码与实现，而是将主要篇幅放在 Flask 框架作为 WebServer 的核心源码上，如果你对 WerkZeug 感兴趣，可以到它们的 [官方仓库](#reference) 下阅读相关文档进行更深入的了解
 
 ## Reference
 

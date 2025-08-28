@@ -141,7 +141,7 @@ print(f"The last one in foo is {y}")
 
 不过，在上面的代码中，推导语句中的 for 循环所使用的循环变量 ( x ) 不会泄露到外部作用域。为了避免循环变量的泄露，建议赋值表达式只出现在推导逻辑的条件之中
 
-> 在最新的 Python 里，即便这样写变量似乎还是会泄漏到外部，参见 [PEP 572](https://peps.python.org/pep-0572/#why-not-use-a-sublocal-scope-and-prevent-namespace-pollution) 和[作者勘误](https://github.com/bslatkin/effectivepython/issues/83)
+> 在最新的 Python 里，即便这样写变量似乎还是会泄漏到外部，参见 [PEP 572](https://peps.python.org/pep-0572/#why-not-use-a-sublocal-scope-and-prevent-namespace-pollution) 和 [作者勘误](https://github.com/bslatkin/effectivepython/issues/83)
 >
 
 ## 让函数返回迭代器而非直接返回列表
@@ -232,7 +232,7 @@ tee 函数可以将一个迭代器分裂成多个平行的迭代器，分裂出�
 
 #### islice
 
-islice 函数可以在不拷贝数据的前提下按照下标切割原迭代器，其使用方式与标准的序列切片及步进机制类似，即 islice(iterable,begin,end,step),当除迭代器外只提供一个参数时该参数表示切割的终点
+islice 函数可以在不拷贝数据的前提下按照下标切割原迭代器，其使用方式与标准的序列切片及步进机制类似，即 islice(iterable, begin, end, step), 当除迭代器外只提供一个参数时该参数表示切割的终点
 
 #### takewhile
 
@@ -258,11 +258,11 @@ product 会从一个或多个源迭代器里获取元素，并计算笛卡尔积
 
 #### permutations
 
-permutations 函数会考虑源迭代器所能给出的全部元素，并逐个输出由其中的 N 个元素形成的每种有序排列方式，N由第二个参数指定
+permutations 函数会考虑源迭代器所能给出的全部元素，并逐个输出由其中的 N 个元素形成的每种有序排列方式，N 由第二个参数指定
 
 #### combinations
 
-combinations 函数会考虑源迭代器所能给出的全部元素，并逐个输出由其中的 N 个元素形成的每种无序组合方式，N由第二个参数指定
+combinations 函数会考虑源迭代器所能给出的全部元素，并逐个输出由其中的 N 个元素形成的每种无序组合方式，N 由第二个参数指定
 
 #### combinations_with_replacement
 

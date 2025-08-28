@@ -11,4 +11,4 @@ updated: 2023-08-12 00:00:00
 <source src="video/Python，启动！.mp4">
 </video>
 
-写Python玉玉了孩子不懂事视频做着玩的
+写 Python 玉玉了孩子不懂事视频做着玩的

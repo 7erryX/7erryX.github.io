@@ -1,5 +1,5 @@
+https://7erryx.github.io/2025/08/08/Research%20Note/Vulnerability-Lifecycle-%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%89%8D%E4%B8%96%E4%BB%8A%E7%94%9F/
 https://7erryx.github.io/2025/07/31/CVE-2017-7494-Investigation/
-https://7erryx.github.io/2025/07/31/Research%20Note/Vulnerability-Lifecycle-%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%89%8D%E4%B8%96%E4%BB%8A%E7%94%9F/
 https://7erryx.github.io/2025/07/07/CVE-2017-0144-Investigation/
 https://7erryx.github.io/2025/07/07/CVE-2021-44228-Investigation/
 https://7erryx.github.io/categories/index.html
@@ -72,6 +72,6 @@ https://7erryx.github.io/2020/05/20/Life%20Spark/%E8%B7%AF%E4%BA%BA%E5%A5%B3%E4%
 https://7erryx.github.io/2020/03/30/Tech%20Blog/%E5%B8%B8%E7%94%A8%E7%AB%AF%E5%8F%A3%E5%A4%87%E5%BF%98%E5%BD%95/
 https://7erryx.github.io/
 https://7erryx.github.io/categories/Vulnerability-Investigation/
-https://7erryx.github.io/categories/Research-Note/
 https://7erryx.github.io/categories/Life-Spark/
+https://7erryx.github.io/categories/Research-Note/
 https://7erryx.github.io/categories/Tech-Blog/

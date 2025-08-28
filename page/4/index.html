@@ -841,7 +841,7 @@
 
                     <div class="home-article-content markdown-body">
                         
-                            <p><a href="#reference">《装甲恶鬼村正》</a>实在给我带来了太深的冲击，以致于即使这部作品存在着非常多我很讨厌，甚至痛恨的元素的情况下，依然成为了我最喜欢的 Galgame 之一。我必须简单地记录一下本作</p>
+                            <p><a href="#reference">《装甲恶鬼村正》</a> 实在给我带来了太深的冲击，以致于即使这部作品存在着非常多我很讨厌，甚至痛恨的元素的情况下，依然成为了我最喜欢的 Galgame 之一。我必须简单地记录一下本作</p>
                         
                     </div>
 
@@ -896,7 +896,7 @@
 
                     <div class="home-article-content markdown-body">
                         
-                            <p>法国安全团队 Vupen 在 Pwn2Own 2012 利用两个 0day 漏洞攻下了 Windows 7 中的 IE9。这两个 0day 漏洞分别为 IE 沙盒 Bypass 漏洞和 IE 堆溢出漏洞，其中后者根据大赛规定被提交给了微软,并随着 <a href="#reference">MS12-037</a> 公告的发布而被修复。它的成因为 mshtml.dll 中的 <code>CTableLayout::CalculateMinMax</code> 函数在以 col 标签的 span 属性值为循环次数向堆内存中写入数据时,未对 span 进行有效的校验，若 span 值设置不当就会导致堆溢出进而 RCE。</p>
+                            <p>法国安全团队 Vupen 在 Pwn2Own 2012 利用两个 0day 漏洞攻下了 Windows 7 中的 IE9。这两个 0day 漏洞分别为 IE 沙盒 Bypass 漏洞和 IE 堆溢出漏洞，其中后者根据大赛规定被提交给了微软, 并随着 <a href="#reference">MS12-037</a> 公告的发布而被修复。它的成因为 mshtml.dll 中的 <code>CTableLayout::CalculateMinMax</code> 函数在以 col 标签的 span 属性值为循环次数向堆内存中写入数据时, 未对 span 进行有效的校验，若 span 值设置不当就会导致堆溢出进而 RCE。</p>
 <blockquote>
 <p>mshtml.dll 是 IE 中的重要组件，负责解析页面中的 HTML 和 CSS。不少知名漏洞都与它有关，关于 IE 主要组件的更多细节可参阅 <a href="#reference">Internet Explorer Architecture</a></p>
 </blockquote>
@@ -1018,7 +1018,7 @@
                     <div class="home-article-content markdown-body">
                         
                             
-                            一转眼已经六年了，又重温了一遍剧场版，原作和广播剧，无论看多少次都是那么地感动，我永远喜欢路人女主的养成方法（冴えない彼女の育てかた）！！！惠生日快乐😭😭😭めぐみ，お誕生日おめでとう！Megumi, Happy Birthday!
+                            一转眼已经六年了，又重温了一遍剧场版，原作和广播剧，无论看多少次都是那么地感动，我永远喜欢 路人女主的养成方法（冴 えない 彼女 の 育 てかた）！！！惠 生日快乐 😭😭😭めぐみ，お 誕生日 おめでとう！Megumi, Happy Birthday!
 
                         
                     </div>
@@ -1074,7 +1074,7 @@
 
                     <div class="home-article-content markdown-body">
                         
-                            <p>微软的多媒体库 winmm.dll 中的 midiOutPlayNextPolyEvent 函数在处理 MIDI 文件时对其 Note On 和 Note Off 字段没有做限制,导致可以操纵该字段访问堆块之外的 1 个字节的内存空间,攻击者可利用该堆溢出漏洞在网页中嵌入恶意构造的 MIDI 文件实现 RCE。</p>
+                            <p>微软的多媒体库 winmm.dll 中的 midiOutPlayNextPolyEvent 函数在处理 MIDI 文件时对其 Note On 和 Note Off 字段没有做限制, 导致可以操纵该字段访问堆块之外的 1 个字节的内存空间, 攻击者可利用该堆溢出漏洞在网页中嵌入恶意构造的 MIDI 文件实现 RCE。</p>
 <p>影响范围:</p>
 <p>Microsoft Windows 7, Windows 7 SP1<br>Microsoft Windows Server 2003 SP2<br>Microsoft Windows Server 2008 SP2, Windows Server 2008 R2<br>Microsoft Windows Vista SP2<br>Microsoft Windows Xp SP2, Windows Xp SP3</p>
                         
@@ -1131,7 +1131,7 @@
 
                     <div class="home-article-content markdown-body">
                         
-                            <p>Microsoft Windows Cinepak 编解码器对媒体文件解压缩时存在代码控制不当,其中(iccvid.dll)的 CVDCompress 函数在解压缩媒体文件时未对 Cinepak(CVID) Stream Format 中的 Number of coded strips(Frame Header) 大小充分检测与限制,导致在复制压缩数据时造成堆溢出,进而导致程序崩溃或任意代码执行(maybe)</p>
+                            <p>Microsoft Windows Cinepak 编解码器对媒体文件解压缩时存在代码控制不当, 其中(iccvid.dll)的 CVDCompress 函数在解压缩媒体文件时未对 Cinepak(CVID) Stream Format 中的 Number of coded strips(Frame Header) 大小充分检测与限制, 导致在复制压缩数据时造成堆溢出, 进而导致程序崩溃或任意代码执行(maybe)</p>
 <p>影响范围：<br>Microsoft Windows XP Professional x64 Edition Service Pack 2<br>Microsoft Windows XP Service Pack 3<br>Microsoft Windows Vista Service Pack 1 and Microsoft Windows Vista Service Pack 2<br>Microsoft Windows Vista x64 Edition Service Pack 1 and Microsoft Windows Vista x64 Edition Service Pack 2<br>Microsoft Windows 7 for 32-bit Systems<br>Microsoft Windows 7 for x64-based Systems</p>
                         
                     </div>
@@ -1205,7 +1205,7 @@
                     </span>
                     
                         <span>
-                            217.9k words in total
+                            219.3k words in total
                         </span>
                     
                 </p>

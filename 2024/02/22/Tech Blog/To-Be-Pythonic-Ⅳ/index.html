@@ -786,7 +786,7 @@
 
 <p>不过，在上面的代码中，推导语句中的 for 循环所使用的循环变量 ( x ) 不会泄露到外部作用域。为了避免循环变量的泄露，建议赋值表达式只出现在推导逻辑的条件之中</p>
 <blockquote>
-<p>在最新的 Python 里，即便这样写变量似乎还是会泄漏到外部，参见 <a class="link"   target="_blank" rel="noopener external nofollow noreferrer" href="https://peps.python.org/pep-0572/#why-not-use-a-sublocal-scope-and-prevent-namespace-pollution" >PEP 572<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> 和<a class="link"   target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/bslatkin/effectivepython/issues/83" >作者勘误<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<p>在最新的 Python 里，即便这样写变量似乎还是会泄漏到外部，参见 <a class="link"   target="_blank" rel="noopener external nofollow noreferrer" href="https://peps.python.org/pep-0572/#why-not-use-a-sublocal-scope-and-prevent-namespace-pollution" >PEP 572<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> 和 <a class="link"   target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/bslatkin/effectivepython/issues/83" >作者勘误<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
 </blockquote>
 <h2 id="让函数返回迭代器而非直接返回列表"><a href="#让函数返回迭代器而非直接返回列表" class="headerlink" title="让函数返回迭代器而非直接返回列表"></a>让函数返回迭代器而非直接返回列表</h2><p>如果函数要返回的是包含了许多结果的序列，那么最简单的办法是将这些结果放到列表中，例如</p>
 <div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">get_index</span>(<span class="params">some_list</span>) -&gt; <span class="built_in">list</span>:</span><br><span class="line">    indexes = []</span><br><span class="line">    <span class="keyword">for</span> index , _ <span class="keyword">in</span> <span class="built_in">enumerate</span>(some_list):</span><br><span class="line">        indexes.append(index)</span><br><span class="line">    <span class="keyword">return</span> indexes</span><br></pre></td></tr></table></figure></div>
@@ -807,14 +807,14 @@
 <h4 id="cycle"><a href="#cycle" class="headerlink" title="cycle"></a>cycle</h4><p>cycle 函数接收一个可迭代参数，生成一个不断循环生成参数中各项元素的迭代器</p>
 <h4 id="tee"><a href="#tee" class="headerlink" title="tee"></a>tee</h4><p>tee 函数可以将一个迭代器分裂成多个平行的迭代器，分裂出的个数由第二个参数指定</p>
 <h4 id="zip-longest"><a href="#zip-longest" class="headerlink" title="zip_longest"></a>zip_longest</h4><p>该函数与 Python 内置的 zip 函数类似，但它会在原迭代器长不够时用 fillvalue 参数的值填补提前耗尽的迭代器留下的空缺</p>
-<h3 id="过滤源迭代器中的元素"><a href="#过滤源迭代器中的元素" class="headerlink" title="过滤源迭代器中的元素"></a>过滤源迭代器中的元素</h3><h4 id="islice"><a href="#islice" class="headerlink" title="islice"></a>islice</h4><p>islice 函数可以在不拷贝数据的前提下按照下标切割原迭代器，其使用方式与标准的序列切片及步进机制类似，即 islice(iterable,begin,end,step),当除迭代器外只提供一个参数时该参数表示切割的终点</p>
+<h3 id="过滤源迭代器中的元素"><a href="#过滤源迭代器中的元素" class="headerlink" title="过滤源迭代器中的元素"></a>过滤源迭代器中的元素</h3><h4 id="islice"><a href="#islice" class="headerlink" title="islice"></a>islice</h4><p>islice 函数可以在不拷贝数据的前提下按照下标切割原迭代器，其使用方式与标准的序列切片及步进机制类似，即 islice(iterable, begin, end, step), 当除迭代器外只提供一个参数时该参数表示切割的终点</p>
 <h4 id="takewhile"><a href="#takewhile" class="headerlink" title="takewhile"></a>takewhile</h4><p>takewhile 函数接收一个函数和一个迭代器为参数，会一直从原迭代器中获取元素直到最新获取到的元素让提供的函数返回 False 为止。</p>
 <h4 id="dropwhile"><a href="#dropwhile" class="headerlink" title="dropwhile"></a>dropwhile</h4><p>与 takewhile 函数相反，dropwhile 函数会一直跳过源迭代器里的元素，直到某元素让提供的函数返回 True 为止，然后它会从这个地方开始取值</p>
 <h4 id="filterfalse"><a href="#filterfalse" class="headerlink" title="filterfalse"></a>filterfalse</h4><p>filerfalse 函数和内置的 filter 函数相反，它会逐个输出源迭代器里使得提供的函数返回 False 的元素</p>
 <h3 id="用源迭代器中的元素合成新元素"><a href="#用源迭代器中的元素合成新元素" class="headerlink" title="用源迭代器中的元素合成新元素"></a>用源迭代器中的元素合成新元素</h3><h4 id="accumulate"><a href="#accumulate" class="headerlink" title="accumulate"></a>accumulate</h4><p>accumulate 函数会从源迭代器中取出一个元素，并把已经累计的结果与这个元素一起传给表示累加逻辑的函数，然后输出那个函数的计算结果，并把结果当成新的累计值，默认累计逻辑为两值相加</p>
 <h4 id="product"><a href="#product" class="headerlink" title="product"></a>product</h4><p>product 会从一个或多个源迭代器里获取元素，并计算笛卡尔积，它可以取代多层嵌套的列表推导代码</p>
-<h4 id="permutations"><a href="#permutations" class="headerlink" title="permutations"></a>permutations</h4><p>permutations 函数会考虑源迭代器所能给出的全部元素，并逐个输出由其中的 N 个元素形成的每种有序排列方式，N由第二个参数指定</p>
-<h4 id="combinations"><a href="#combinations" class="headerlink" title="combinations"></a>combinations</h4><p>combinations 函数会考虑源迭代器所能给出的全部元素，并逐个输出由其中的 N 个元素形成的每种无序组合方式，N由第二个参数指定</p>
+<h4 id="permutations"><a href="#permutations" class="headerlink" title="permutations"></a>permutations</h4><p>permutations 函数会考虑源迭代器所能给出的全部元素，并逐个输出由其中的 N 个元素形成的每种有序排列方式，N 由第二个参数指定</p>
+<h4 id="combinations"><a href="#combinations" class="headerlink" title="combinations"></a>combinations</h4><p>combinations 函数会考虑源迭代器所能给出的全部元素，并逐个输出由其中的 N 个元素形成的每种无序组合方式，N 由第二个参数指定</p>
 <h4 id="combinations-with-replacement"><a href="#combinations-with-replacement" class="headerlink" title="combinations_with_replacement"></a>combinations_with_replacement</h4><p>该函数与 combinations 函数类似，但它允许同一个元素在组合里多次出现</p>
 
 		</div>
@@ -928,7 +928,7 @@
                     </span>
                     
                         <span>
-                            217.9k words in total
+                            219.3k words in total
                         </span>
                     
                 </p>

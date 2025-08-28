@@ -836,7 +836,7 @@
 <p>很难有人能记住 JS 这些复杂而残酷的判断 NULL 的方式。别让你的人生也这样。显然，除非我们需要一个函数不返回任何内容，不然 null 一直都是一个令人头疼的问题</p>
 <p>No one remembers all this . It’s byzantine and cruel . Your life doesn’t have to be this way . Everyone agrees that nulls are bad until it’s time to return nothing from a function .</p>
 <blockquote>
-<p>NULL 的发明者痛恨甚至忏悔自己发明了 NULL ，但这一重要概念又不得不使用。NULL 相关的处理一直都是一件令人头疼的事，除非你用 Rust :P</p>
+<p>NULL 的发明者痛恨甚至忏悔自己发明了 NULL ，但这一重要概念又不得不使用。NULL 相关的处理一直都是一件令人头疼的事，除非你用 Rust : P</p>
 </blockquote>
 <div class="code-container" data-rel="Rust"><figure class="iseeu highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> <span class="title class_">Option</span>&lt;T&gt; &#123; <span class="comment">// T can contain any type of value</span></span><br><span class="line">   <span class="title function_ invoke__">Some</span>(T),</span><br><span class="line">   <span class="literal">None</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> <span class="variable">possibly_a_number</span> = <span class="title function_ invoke__">Some</span>(l);</span><br><span class="line"></span><br><span class="line">possibly_a_number.<span class="title function_ invoke__">map</span>(|n| n + <span class="number">1</span>).<span class="title function_ invoke__">unwrap_or</span>(<span class="number">0</span>); <span class="comment">// 2</span></span><br></pre></td></tr></table></figure></div>
 
@@ -864,7 +864,7 @@
 <li>所有的 AWS<br> All of AWS</li>
 <li>所有的 Windows API<br> All of the MS Windows API</li>
 <li>WASM<br> WebAssembly</li>
-<li>迭代器，Option 与 Result 枚举类型<br> Iterators,Options and Results</li>
+<li>迭代器，Option 与 Result 枚举类型<br> Iterators, Options and Results</li>
 <li>内存安全<br> Memory safety</li>
 </ul>
 <p>在我的上一个视频中我告诉过你，在 Rust 中，你向编译器描述这个世界是如何运作的，然后它会让你对其中的约束负责。丰富的类型系统就是你书写约束的方式，建立在借用检查器之上的编译器让你对其负责。这都意味着你一部署你的代码，它可以完美的工作，这让你感觉自己是个天才</p>
@@ -982,7 +982,7 @@
                     </span>
                     
                         <span>
-                            217.9k words in total
+                            219.3k words in total
                         </span>
                     
                 </p>

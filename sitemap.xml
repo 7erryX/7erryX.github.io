@@ -2,16 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://7erryx.github.io/2025/07/31/CVE-2017-7494-Investigation/</loc>
+    <loc>https://7erryx.github.io/2025/08/08/Research%20Note/Vulnerability-Lifecycle-%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%89%8D%E4%B8%96%E4%BB%8A%E7%94%9F/</loc>
     
-    <lastmod>2025-07-31</lastmod>
+    <lastmod>2025-08-08</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://7erryx.github.io/2025/07/31/Research%20Note/Vulnerability-Lifecycle-%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%89%8D%E4%B8%96%E4%BB%8A%E7%94%9F/</loc>
+    <loc>https://7erryx.github.io/2025/07/31/CVE-2017-7494-Investigation/</loc>
     
     <lastmod>2025-07-31</lastmod>
     
@@ -652,7 +652,7 @@
 
   <url>
     <loc>https://7erryx.github.io/</loc>
-    <lastmod>2025-07-31</lastmod>
+    <lastmod>2025-08-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -662,28 +662,28 @@
   
   <url>
     <loc>https://7erryx.github.io/categories/Vulnerability-Investigation/</loc>
-    <lastmod>2025-07-31</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://7erryx.github.io/categories/Research-Note/</loc>
-    <lastmod>2025-07-31</lastmod>
+    <lastmod>2025-08-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://7erryx.github.io/categories/Life-Spark/</loc>
-    <lastmod>2025-07-31</lastmod>
+    <lastmod>2025-08-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://7erryx.github.io/categories/Research-Note/</loc>
+    <lastmod>2025-08-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://7erryx.github.io/categories/Tech-Blog/</loc>
-    <lastmod>2025-07-31</lastmod>
+    <lastmod>2025-08-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>

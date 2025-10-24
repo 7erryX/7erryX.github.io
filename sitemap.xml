@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://7erryx.github.io/2025/10/24/CVE-2015%E2%80%930235-Investigation/</loc>
+    
+    <lastmod>2025-10-24</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://7erryx.github.io/2025/10/10/CVE-2014-3566-Investigation/</loc>
     
     <lastmod>2025-10-10</lastmod>
@@ -679,7 +688,7 @@
 
   <url>
     <loc>https://7erryx.github.io/</loc>
-    <lastmod>2025-10-10</lastmod>
+    <lastmod>2025-10-24</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -689,28 +698,28 @@
   
   <url>
     <loc>https://7erryx.github.io/categories/Vulnerability-Investigation/</loc>
-    <lastmod>2025-10-10</lastmod>
+    <lastmod>2025-10-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://7erryx.github.io/categories/Life-Spark/</loc>
-    <lastmod>2025-10-10</lastmod>
+    <lastmod>2025-10-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://7erryx.github.io/categories/Research-Note/</loc>
-    <lastmod>2025-10-10</lastmod>
+    <lastmod>2025-10-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://7erryx.github.io/categories/Tech-Blog/</loc>
-    <lastmod>2025-10-10</lastmod>
+    <lastmod>2025-10-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>

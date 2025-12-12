@@ -1,3 +1,6 @@
+https://7erryx.github.io/2025/12/12/CVE-2025-55182-Investigation/
+https://7erryx.github.io/2025/11/11/CVE-2017-13080-Investigation/
+https://7erryx.github.io/2025/10/31/CVE-2020-1938-Investigation/
 https://7erryx.github.io/2025/10/24/CVE-2015%E2%80%930235-Investigation/
 https://7erryx.github.io/2025/10/10/CVE-2014-3566-Investigation/
 https://7erryx.github.io/2025/09/09/CVE-2014-6271-Investigation/
@@ -76,6 +79,6 @@ https://7erryx.github.io/2020/05/19/Life%20Spark/%E8%B7%AF%E4%BA%BA%E5%A5%B3%E4%
 https://7erryx.github.io/2020/03/29/Tech%20Blog/%E5%B8%B8%E7%94%A8%E7%AB%AF%E5%8F%A3%E5%A4%87%E5%BF%98%E5%BD%95/
 https://7erryx.github.io/
 https://7erryx.github.io/categories/Vulnerability-Investigation/
-https://7erryx.github.io/categories/Life-Spark/
 https://7erryx.github.io/categories/Research-Note/
+https://7erryx.github.io/categories/Life-Spark/
 https://7erryx.github.io/categories/Tech-Blog/

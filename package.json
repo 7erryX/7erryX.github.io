@@ -15,7 +15,7 @@
     "hexo": "^8.1.1",
     "hexo-abbrlink": "^2.2.1",
     "hexo-all-minifier": "^0.5.7",
-    "hexo-bilibili-bangumi": "^2.0.1",
+    "hexo-bilibili-bangumi": "^2.0.2",
     "hexo-deployer-git": "^4.0.0",
     "hexo-filter-mathjax": "^0.9.1",
     "hexo-filter-mermaid-diagrams": "^1.0.5",

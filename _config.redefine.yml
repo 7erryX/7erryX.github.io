@@ -12,9 +12,9 @@
 info:
   # Site title
   # 因为备案原因暂改为其他标题
-  title: 7erry's Website
+  title: 7erry
   # title: 芮讦主页
-  subtitle: 
+  subtitle: Website
   # Author name
   author: 7erry
   # Site URL
@@ -91,17 +91,24 @@ global:
   # Whether to enable Preloader.
   preloader:
     enable: true
-    custom_message: # Custom message. If empty, the site title will be displayed
+    custom_message: 7erry's Website # Custom message. If empty, the site title will be displayed
+  # Whether to enable open graph
+  # Side tools settings
+  side_tools:
+    # Whether to enable gear rotation animation for settings button
+    gear_rotation: true
+    # Whether to auto expand tools list on page load
+    auto_expand: true
   # Whether to enable open graph
   open_graph:
     enable: true
     image: /images/default_avatar.png
     description: (v50) 経験に3を加えて,失礼します [中国翻訳] [無修正] # Google Analytics
   google_analytics:
-    enable: false # Whether to enable Google Analytics
-    id:  # Google Analytics Measurement ID
+    enable: true # Whether to enable Google Analytics
+    id: G-RWM51NR8JQ # Google Analytics Measurement ID
 # SITE CUSTOMIZATION <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< end
-    
+
 
 # FONTAWESOME >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> start
 # Docs: https://redefine-docs.ohevan.com/basic/fontawesome
@@ -136,16 +143,25 @@ home_banner:
     text: [
       "君子慎独",
       "君子不器",
-      "我的人生烷基八氮了",
+      "君子不争",
+      "君子不为苛察，不以身假物",
+      "君子务本，本立而道生",
+      "人有不为也，而后可以有为",
+      "胜人者力，自胜者强",
+      "问题是思考的钥匙",
+      "在伟大的时代，做渺小的贡献",
+      # "我的人生烷基八氮了",
       "Fall in Love with the Problem, Not the Solution",
-      "Do The Right Thing，Do The Thing Right",
+      "Do The Right Thing, Do The Thing Right",
       "Lux et veritas",
       "Mens et Manus",
       "Per Aspera Ad Astra",
-      "(v50) 経験に3を加えて，失礼します [中国翻訳] [無修正]",
-      "呐呐呐，你听说过二刺螈吗?",
+      "Ends justify the means",
+      # "(v50) 経験に3を加えて，失礼します [中国翻訳] [無修正]",
+      # "呐呐呐，你听说过二刺螈吗?",
       "取势，明道，优术",
-      "做难而正确的事"
+      # "做难而正确的事"
+      "Do things right, not things easy"
       ] # subtitle text, array
     hitokoto:  # 一言配置
       enable: false # Whether to enable hitokoto
@@ -264,18 +280,20 @@ home:
     announcement: # Announcement text
     show_on_mobile: true # Whether to show sidebar navigation on mobile sheet menu
     links:
-       Archives: 
-         path: /archives 
-         icon: fa-regular fa-archive # can be empty
+      # Archives: 
+      #   path: /archives 
+      #   icon: fa-regular fa-archive # can be empty
       # Tags: 
       #   path: /tags 
       #   icon: fa-regular fa-tags # can be empty
-       Categories: 
-         path: /categories 
-         icon: fa-regular fa-folder # can be empty
+      # Categories: 
+      #   path: /categories 
+      #   icon: fa-regular fa-folder # can be empty
       # ...... # you can add more
   # Article date format
   article_date_format: auto # auto, relative, YYYY-MM-DD, YYYY-MM-DD HH:mm:ss etc.
+  # Article excerpt length
+  excerpt_length: 200 # Max length of article excerpt
   # Article categories visibility
   categories:
     enable: true  # Whether to enable
@@ -298,6 +316,7 @@ articles:
     image_alignment: center # image alignment. left, center
     image_caption: false # Whether to display image caption
     link_icon: true # Whether to display link icon
+    delete_mask: true # Add mask effect to <del> tags, hiding content by default and revealing on hover
     title_alignment: left # Title alignment. left, center
     headings_top_spacing: # Top spacing for headings from h1-h6
       h1: 5rem
@@ -351,7 +370,7 @@ articles:
     # Max number of articles to display mobile
     mobile_limit: 2
     # Placeholder image
-    placeholder: /images/wallhaven-wqery6-light.webp
+    placeholder: /images/recommend.jpg
     # Skip directory
     skip_dirs: []
 # ARTICLE <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< end
@@ -361,7 +380,7 @@ articles:
 # Docs: https://redefine-docs.ohevan.com/posts/comment
 comment:
   # Whether to enable comment
-  enable: false
+  enable: true
   # Comment system
   system: gitalk # waline, gitalk, twikoo, giscus
   # System configuration
@@ -375,10 +394,10 @@ comment:
       turnstileKey: # Turnstile key. See https://waline.js.org/reference/client/props.html#turnstilekey
     # Gitalk comment system. See https://github.com/gitalk/gitalk
     gitalk:
-      clientID: # GitHub Application Client ID
-      clientSecret: # GitHub Application Client Secret
-      repo: # GitHub repository
-      owner: # GitHub repository owner
+      clientID: Ov23libH3Xd9PxVu3LCR # GitHub Application Client ID
+      clientSecret: 94e9555f77e9a3f938f8cf232d497375d8cc156f # GitHub Application Client Secret
+      repo: 7erryX.github.io # GitHub repository
+      owner: 7erryX # GitHub repository owner
       proxy: # GitHub repository proxy
     # Twikoo comment system. See https://twikoo.js.org/
     twikoo:

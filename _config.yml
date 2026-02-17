@@ -3,13 +3,13 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: 7erry's Website
+title: 7erry
 #title: 芮讦主页
-subtitle: ''
+subtitle: 'Website'
 # subtitle: '沃德仁声烷基八氮辣'
 description: ''
 # description: 'Here is 7erry , an ACG lover focusing on explorering Cyberspace Security and Geek Technology . Welcome to my blog website where I share my life experience and technology tips .'
-keywords: Blog, Security, Vulnerability, Flaw, Life, Software, Research, Tech
+keywords: Blog, Security, Vulnerability, Flaw, Life, Software, Research, Tech, Bug
 author: 7erry
 language: en, zh-CN
 timezone: 'Asia/Shanghai'
@@ -51,7 +51,7 @@ highlight:
   auto_detect: false
   line_number: true
   line_threshold: 0
-  tab_replace: ""
+  tab_replace: "    "
   exclude_languages:
   wrap: true
   hljs: false
@@ -59,7 +59,7 @@ prismjs:
   preprocess: true
   line_number: true
   line_threshold: 0
-  tab_replace: ""
+  tab_replace: "    "
 
 # Home page setting
 # path: Root path for your blogs index page. (default = '')

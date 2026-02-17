@@ -10,3 +10,4 @@ npm install hexo-filter-nofollow --save
 npm install hexo-generator-sitemap --save
 npm install hexo-neat --save
 npm install hexo-abbrlink --save
+npm install nodejieba@latest

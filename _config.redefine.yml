@@ -200,17 +200,20 @@ home_banner:
     style: default # default, reverse, center
     # Social links
     links:
-      github:  https://github.com/7erryX # your GitHub URL
-      # instagram: # your Instagram URL
-      # zhihu:  # your ZhiHu URL
-      bilibili: https://space.bilibili.com/25689965
-      # twitter:  # your twitter URL
-      email:  w.7erry@qq.com # your email
-      # ...... # you can add more
+      - icon: github
+        url: https://github.com/7erryX # your GitHub URL
+      - icon: bilibili
+        url: https://space.bilibili.com/25689965
+      - icon: twitter
+        url: https://x.com/7erryX # your twitter URL
+      - icon: email
+        url: w.7erry@gmail.com # your email
+      - icon: linkedin
+        url: https://www.linkedin.com/in/ruijie-w-6a9338385
     # Social links with QRcode drawers
     qrs:
-      # weixin:  # your Wechat QRcode image URL
-      # ...... # you can add more
+      # - icon: weixin
+      #   qr: # your Wechat QRcode image URL
 # HOME BANNER <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< end
 
 

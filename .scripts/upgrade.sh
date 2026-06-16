@@ -28,5 +28,8 @@ npm update -g &&
 # 更新系统插件
 npm update --save &&
 
+# 更新主题
+npm install hexo-theme-redefine@latest &&
+
 # 再次查看版本，判断是否升级成功
 hexo version

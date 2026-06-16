@@ -237,20 +237,23 @@ navbar:
       path: / 
       icon: fa-regular fa-house # can be empty
     Archives: 
-       path: /archives 
-       icon: fa-regular fa-archive # can be empty
+        path: /archives 
+        icon: fa-regular fa-archive # can be empty
     # Status: 
     #   path: https://status.ohevan.com/
     #   icon: fa-regular fa-chart-bar
     Anime:
-       path: /bangumis
-       icon: fa-brands fa-youtube
+        path: /bangumis
+        icon: fa-brands fa-youtube
     Cinema:
-       path: /cinemas
-       icon: fa-solid fa-film
+        path: /cinemas
+        icon: fa-solid fa-film
+    Game:
+        path: /games
+        icon: fa-solid fa-gamepad
     About:
-       path: /about
-       icon: fa-regular fa-user
+        path: /about
+        icon: fa-regular fa-user
     #   submenus:
     #     Me: /about
     #     Github: https://github.com/EvanNotFound/hexo-theme-redefine

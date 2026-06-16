@@ -115,47 +115,79 @@ deploy:
 
 bangumi: # 追番设置
   enable: true
-  source: bili
-  bgmInfoSource: 'bgmApi'
+  source: bgmv0 # bili/bgmv0/bangumi/bgm/anilist/simkl
+  # bgmInfoSource: 'bgmApi'
   path: bangumis/index.html
-  vmid: 25689965
+  vmid: 928229 # Bilibili 25689965 bgm 928229
   title: '追番列表'
   quote: '(v50) 経験に3を加えて,失礼します [中国翻訳] [無修正]'
+  theme: auto
   show: 1
-  lazyload: false
+  lazyload: true
   srcValue: '__image__'
   lazyloadAttrName: 'data-src=__image__'
   loading:
   showMyComment: false
-  pagination: false
+  pagination: true
   metaColor:
   color:
   webp: false
-  progress:
+  progress: true
+  progressBar: true
   extraOrder:
   proxy:
  #   host: '代理host'
  #   port: '代理端口'
   extra_options:
 #    key: value
+  coverMirror:
+
 cinema: # 追剧设置
   enable: true
   path: cinemas/index.html
-  vmid: 25689965
+  source: bili # bili/bgmv0/bangumi/bgm/anilist/simkl
+  vmid: 25689965 # Bilibili 25689965 bgm 928229
   title: '追剧列表'
   quote: '(v50) 経験に3を加えて,失礼します [中国翻訳] [無修正]'
   show: 1
-  lazyload: false
+  theme: auto
+  lazyload: true
   srcValue: '__image__'
   lazyloadAttrName: 'data-src=__image__'
   loading:
   metaColor:
   color:
   webp: false
-  progress:
+  progress: true
+  progressBar: true
   extraOrder:
   extra_options:
 #    key: value
+  coverMirror:
+
+game: # 游戏设置，仅支持source: bgmv0
+  enable: true
+  path: games/index.html
+  source: bgmv0
+  vmid: 928229 # Bilibili 25689965 bgm 928229
+  title: '游戏列表'
+  quote: '(v50) 経験に3を加えて,失礼します [中国翻訳] [無修正]'
+  theme: auto
+  show: 1
+  lazyload: true
+  srcValue: '__image__'
+  swup: false
+  metaColor:
+  color:
+  webp: false
+  progress: true
+  progressBar: true
+  extraOrder:
+  order:
+  extra_options:
+#    key: value
+  coverMirror:
+
 
 mathjax:
     tags: none # or 'ams' or 'all'

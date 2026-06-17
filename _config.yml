@@ -129,22 +129,22 @@ bangumi: # 追番设置
   srcValue: '__image__'
   # lazyloadAttrName: 'data-src=__image__' # 已弃用
   # loading: 已弃用
-  swup: false
+  swup: true
   showMyComment: false
   pagination: false
-  metaColor:
-  color:
-  webp:
-  progress: true
-  progressBar: true
-  extraOrder:
+  # metaColor:
+  # color:
+  # webp:
+  progress: false
+  progressBar: false
+  # extraOrder:
   order: latest
-  proxy:
+  # proxy:
     # host: '代理host'
     # port: '代理端口'
-  extra_options:
+  # extra_options:
     # key: value
-  coverMirror:
+  # coverMirror:
 cinema: # 追剧设置
   enable: true
   path: cinemas/index.html
@@ -156,17 +156,18 @@ cinema: # 追剧设置
   show: 1
   lazyload: true
   srcValue: '__image__'
-  swup: false
-  metaColor:
-  color:
+  swup: true
+  pagination: false
+  # metaColor:
+  # color:
   webp: false
-  progress: true
-  progressBar: true
-  extraOrder:
-  order:
-  extra_options:
+  progress: false
+  progressBar: false
+  # extraOrder:
+  # order:
+  # extra_options:
     # key: value
-  coverMirror:
+  # coverMirror:
 game: # 游戏设置，仅支持source: bgmv0
   enable: true
   path: games/index.html
@@ -178,17 +179,18 @@ game: # 游戏设置，仅支持source: bgmv0
   show: 1
   lazyload: true
   srcValue: '__image__'
-  swup: false
-  metaColor:
-  color:
-  webp:
-  progress: true
-  progressBar: true
-  extraOrder:
-  order:
-  extra_options:
+  swup: true
+  pagination: false
+  # metaColor:
+  # color:
+  # webp:
+  progress: false
+  progressBar: false
+  # extraOrder:
+  # order:
+  # extra_options:
 #    key: value
-  coverMirror:
+  # coverMirror:
 
 mathjax:
     tags: none # or 'ams' or 'all'

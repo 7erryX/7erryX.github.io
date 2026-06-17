@@ -1,3 +1,4 @@
+https://7erryx.github.io/about/index.html
 https://7erryx.github.io/2026/06/06/CVE-2015-3456-Investigation/
 https://7erryx.github.io/2026/04/01/CVE-2019-15126-Investigation/
 https://7erryx.github.io/2026/03/03/CVE-2016-5195-Investigation/
@@ -21,7 +22,6 @@ https://7erryx.github.io/2025/07/07/CVE-2017-0144-Investigation/
 https://7erryx.github.io/2025/07/07/CVE-2021-44228-Investigation/
 https://7erryx.github.io/categories/index.html
 https://7erryx.github.io/archives/index.html
-https://7erryx.github.io/about/index.html
 https://7erryx.github.io/2025/06/06/Vulnerability%20Investigation/CVE-2014-0160-Investigation/
 https://7erryx.github.io/2025/05/25/Vulnerability%20Investigation/CVE-2011-2110-Investigation/
 https://7erryx.github.io/2025/05/05/Vulnerability%20Investigation/CVE-2015-0313-Investigation/
@@ -78,8 +78,8 @@ https://7erryx.github.io/2023/08/18/Tech%20Blog/%E4%B8%80%E5%8F%A5%E8%AF%9D%E6%9
 https://7erryx.github.io/2023/08/11/Life%20Spark/Python-%E5%90%AF%E5%8A%A8%EF%BC%81/
 https://7erryx.github.io/2023/07/31/Tech%20Blog/PythonTips/
 https://7erryx.github.io/2023/07/22/Tech%20Blog/Python%E4%B9%8B%E7%A6%85/
-https://7erryx.github.io/2023/07/22/Tech%20Blog/%E5%B8%83%E5%B0%94%E6%B3%A8%E5%85%A5%E4%B8%8E%E8%84%9A%E6%9C%AC%E8%87%AA%E5%8A%A8%E5%8C%96%E7%9A%84%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0/
 https://7erryx.github.io/2023/07/22/Tech%20Blog/%E8%AE%A1%E6%97%B6%E6%94%BB%E5%87%BB/
+https://7erryx.github.io/2023/07/22/Tech%20Blog/%E5%B8%83%E5%B0%94%E6%B3%A8%E5%85%A5%E4%B8%8E%E8%84%9A%E6%9C%AC%E8%87%AA%E5%8A%A8%E5%8C%96%E7%9A%84%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0/
 https://7erryx.github.io/2023/07/20/Tech%20Blog/%E7%91%9E%E5%A3%AB%E5%86%9B%E5%88%80-NetCat%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/
 https://7erryx.github.io/2021/02/20/Tech%20Blog/%E7%A4%BE%E4%BA%A4%E5%B7%A5%E7%A8%8B%E5%AD%A6%E2%80%94%E2%80%94%E6%AC%BA%E9%AA%97%E7%9A%84%E8%89%BA%E6%9C%AF/
 https://7erryx.github.io/2021/02/01/Tech%20Blog/%E3%80%8A%E5%8F%8D%E6%AC%BA%E9%AA%97%E7%9A%84%E8%89%BA%E6%9C%AF%E3%80%8B%E6%91%98%E6%8A%84%E5%85%B6%E4%BA%8C/
@@ -90,5 +90,5 @@ https://7erryx.github.io/2020/03/29/Tech%20Blog/%E5%B8%B8%E7%94%A8%E7%AB%AF%E5%8
 https://7erryx.github.io/
 https://7erryx.github.io/categories/Vulnerability-Investigation/
 https://7erryx.github.io/categories/Life-Spark/
-https://7erryx.github.io/categories/Tech-Blog/
 https://7erryx.github.io/categories/Research-Note/
+https://7erryx.github.io/categories/Tech-Blog/

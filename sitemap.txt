@@ -1,6 +1,6 @@
+https://7erryx.github.io/bangumis.json
 https://7erryx.github.io/2026/06/16/%E6%9C%AC%E7%A7%91%E6%AF%95%E4%B8%9A%E5%9B%9E%E9%A1%BE/
 https://7erryx.github.io/about/index.html
-https://7erryx.github.io/bangumis.json
 https://7erryx.github.io/2026/06/06/CVE-2015-3456-Investigation/
 https://7erryx.github.io/2026/05/10/Life%20Spark/%E6%9C%AC%E7%A7%91%E6%AF%95%E4%B8%9A%E8%87%B4%E8%B0%A2/
 https://7erryx.github.io/2026/04/01/CVE-2019-15126-Investigation/

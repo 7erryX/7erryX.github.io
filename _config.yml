@@ -113,10 +113,12 @@ deploy:
   branch: gh-page
   messgae: "Deploy and Update Hexo at $(date '+%Y-%m-%d %H:%M:%S')"
 
+
 bangumi: # 追番设置
   enable: true
   source: bgmv0 # bili/bgmv0/bangumi/bgm/anilist/simkl
   # bgmInfoSource: 'bgmApi'
+  bgmInfoSource: 'bgmv0'
   path: bangumis/index.html
   vmid: 928229 # Bilibili 25689965 bgm 928229
   title: '追番列表'
@@ -125,52 +127,30 @@ bangumi: # 追番设置
   show: 1
   lazyload: true
   srcValue: '__image__'
-  lazyloadAttrName: 'data-src=__image__'
-  loading:
+  # lazyloadAttrName: 'data-src=__image__' # 已弃用
+  # loading: 已弃用
+  swup: false
   showMyComment: false
-  pagination: true
+  pagination: false
   metaColor:
   color:
-  webp: false
+  webp:
   progress: true
   progressBar: true
   extraOrder:
+  order: latest
   proxy:
- #   host: '代理host'
- #   port: '代理端口'
+    # host: '代理host'
+    # port: '代理端口'
   extra_options:
-#    key: value
+    # key: value
   coverMirror:
-
 cinema: # 追剧设置
   enable: true
   path: cinemas/index.html
   source: bili # bili/bgmv0/bangumi/bgm/anilist/simkl
   vmid: 25689965 # Bilibili 25689965 bgm 928229
   title: '追剧列表'
-  quote: '(v50) 経験に3を加えて,失礼します [中国翻訳] [無修正]'
-  show: 1
-  theme: auto
-  lazyload: true
-  srcValue: '__image__'
-  lazyloadAttrName: 'data-src=__image__'
-  loading:
-  metaColor:
-  color:
-  webp: false
-  progress: true
-  progressBar: true
-  extraOrder:
-  extra_options:
-#    key: value
-  coverMirror:
-
-game: # 游戏设置，仅支持source: bgmv0
-  enable: true
-  path: games/index.html
-  source: bgmv0
-  vmid: 928229 # Bilibili 25689965 bgm 928229
-  title: '游戏列表'
   quote: '(v50) 経験に3を加えて,失礼します [中国翻訳] [無修正]'
   theme: auto
   show: 1
@@ -185,9 +165,30 @@ game: # 游戏设置，仅支持source: bgmv0
   extraOrder:
   order:
   extra_options:
+    # key: value
+  coverMirror:
+game: # 游戏设置，仅支持source: bgmv0
+  enable: true
+  path: games/index.html
+  source: bgmv0
+  vmid: 928229 # Bilibili 25689965 bgm 928229
+  title: '游戏列表'
+  quote: '(v50) 経験に3を加えて,失礼します [中国翻訳] [無修正]'
+  theme: auto
+  show: 1
+  lazyload: true
+  srcValue: '__image__'
+  swup: false
+  metaColor:
+  color:
+  webp:
+  progress: true
+  progressBar: true
+  extraOrder:
+  order:
+  extra_options:
 #    key: value
   coverMirror:
-
 
 mathjax:
     tags: none # or 'ams' or 'all'

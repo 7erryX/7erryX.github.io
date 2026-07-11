@@ -5,9 +5,8 @@ Thumbs.db
 /public
 /source/_drafts
 /.deploy*/
-node_modules/
-public/
-.deploy*/
+
 _multiconfig.yml
 source/_data/cinemas.json
 source/_data/bangumis.json
+db.json

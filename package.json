@@ -35,5 +35,11 @@
     "hexo-theme-redefine": "^2.9.0",
     "hexo-wordcount": "^6.0.1",
     "nodejieba": "^3.5.8"
+  },
+  "allowScripts": {
+    "mozjpeg@7.1.1": true,
+    "gifsicle@5.3.0": true,
+    "jpegtran-bin@5.0.2": true,
+    "optipng-bin@7.0.1": true
   }
 }

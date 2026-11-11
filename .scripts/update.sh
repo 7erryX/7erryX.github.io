@@ -1,4 +1,5 @@
 #! /bin/zsh
+set -e
 #echo "Check/Update theme version"
 #npm install hexo-theme-redefine@latest
 echo "Refresh hexo blog system"
